@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Account — MalabarVoyages</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<style>
+    *{ box-sizing:border-box; }
+    body{
+        font-family:'inter',sans-serif;
+        color:#14290f;
+        margin:0;
+        background:#fdf8f0;
+    }
+
+    /* ============ TOPBAR ============ */
+    .acc-topbar{
+        background:#0b5313;
+        padding:14px 26px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        position:sticky;
+        top:0;
+        z-index:100;
+    }
+    .acc-brand{
+        color:#fff;
+        font-weight:700;
+        font-size:1.15rem;
+        text-decoration:none;
+    }
+    .acc-brand span{ color:#d4a24c; }
+    .acc-topbar-right{
+        display:flex;
+        align-items:center;
+        gap:14px;
+    }
+    .acc-avatar{
+        width:36px; height:36px;
+        border-radius:50%;
+        background:#d4a24c;
+        color:#0b5313;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-weight:700;
+        font-size:.9rem;
+    }
+    .acc-topbar a.acc-exit{
+        color:#e2ece7;
+        font-size:.85rem;
+        text-decoration:none;
+        display:flex;
+        align-items:center;
+        gap:6px;
+    }
+    .acc-topbar a.acc-exit:hover{ color:#d4a24c; }
+
+    /* ============ LAYOUT ============ */
+    .acc-shell{
+        display:flex;
+        min-height:calc(100vh - 62px);
+    }
+
+    /* SIDEBAR — desktop */
+    .acc-sidebar{
+        width:250px;
+        flex-shrink:0;
+        background:#0e2b12;
+        padding:26px 16px;
+    }
+    .acc-sidebar .nav-link{
+        color:#cfe3d4;
+        font-size:.9rem;
+        padding:11px 14px;
+        border-radius:10px;
+        margin-bottom:4px;
+        display:flex;
+        align-items:center;
+        gap:10px;
+    }
+    .acc-sidebar .nav-link i{ font-size:1.05rem; color:#9fc7a6; width:20px; }
+    .acc-sidebar .nav-link.active{
+        background:#0b5313;
+        color:#fff;
+    }
+    .acc-sidebar .nav-link.active i{ color:#d4a24c; }
+    .acc-sidebar .nav-link:hover{ background:rgba(255,255,255,0.06); color:#fff; }
+
+    @media (max-width: 767.98px){
+        .acc-sidebar{ display:none; }
+    }
+
+    /* MAIN CONTENT */
+    .acc-main{
+        flex:1;
+        padding:32px 30px 60px;
+    }
+
+    .acc-welcome{
+        background:linear-gradient(120deg, #0b5313, #0e6e19);
+        border-radius:20px;
+        padding:30px 32px;
+        color:#fff;
+        margin-bottom:26px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        flex-wrap:wrap;
+        gap:16px;
+    }
+    .acc-welcome h1{
+        font-size:1.5rem;
+        font-weight:800;
+        margin-bottom:4px;
+    }
+    .acc-welcome p{
+        color:#d7e6d4;
+        font-size:.9rem;
+        margin:0;
+    }
+    .acc-welcome .btn-gold{
+        background:#d4a24c;
+        color:#0b3d16;
+        border:none;
+        padding:10px 22px;
+        border-radius:50px;
+        font-weight:600;
+        font-size:.88rem;
+        text-decoration:none;
+        white-space:nowrap;
+    }
+    .acc-welcome .btn-gold:hover{ background:#e0af5c; color:#0b3d16; }
+
+    .acc-stat-card{
+        background:#fff;
+        border-radius:16px;
+        padding:20px;
+        box-shadow:0 8px 20px rgba(0,0,0,.05);
+        border:1px solid #f0ebe0;
+        height:100%;
+    }
+    .acc-stat-card i{
+        width:42px; height:42px;
+        border-radius:12px;
+        background:#e5f2e6;
+        color:#0b5313;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:1.15rem;
+        margin-bottom:12px;
+    }
+    .acc-stat-card strong{
+        display:block;
+        font-size:1.4rem;
+        color:#14290f;
+        line-height:1;
+        margin-bottom:4px;
+    }
+    .acc-stat-card span{
+        font-size:.78rem;
+        color:#9a9a9a;
+    }
+
+    .acc-section-title{
+        font-size:1.05rem;
+        font-weight:700;
+        color:#14290f;
+        margin:30px 0 14px;
+    }
+
+    .acc-empty{
+        background:#fff;
+        border:1px dashed #e2ddd0;
+        border-radius:16px;
+        padding:40px 24px;
+        text-align:center;
+    }
+    .acc-empty i{
+        font-size:2.2rem;
+        color:#d4a24c;
+        margin-bottom:12px;
+        display:block;
+    }
+    .acc-empty h5{ color:#14290f; font-weight:700; margin-bottom:6px; }
+    .acc-empty p{ color:#9a9a9a; font-size:.88rem; margin-bottom:18px; }
+    .acc-empty a{
+        background:#0b5313;
+        color:#fff;
+        border:none;
+        padding:10px 24px;
+        border-radius:50px;
+        font-weight:600;
+        font-size:.88rem;
+        text-decoration:none;
+    }
+    .acc-empty a:hover{ background:#0e6e19; color:#fff; }
+
+    .acc-package-mini{
+        background:#fff;
+        border-radius:14px;
+        overflow:hidden;
+        border:1px solid #f0ebe0;
+        display:flex;
+        align-items:center;
+        gap:14px;
+        padding:12px;
+        margin-bottom:12px;
+    }
+    .acc-package-mini img{
+        width:64px; height:64px;
+        border-radius:10px;
+        object-fit:cover;
+        flex-shrink:0;
+    }
+    .acc-package-mini h6{ margin:0 0 3px; font-size:.92rem; color:#14290f; font-weight:700; }
+    .acc-package-mini span{ font-size:.78rem; color:#9a9a9a; }
+    .acc-package-mini .price{ margin-left:auto; text-align:right; }
+    .acc-package-mini .price strong{ color:#0b5313; font-size:1rem; display:block; }
+
+    /* PROFILE FORM CARD */
+    .acc-card{
+        background:#fff;
+        border-radius:18px;
+        padding:26px;
+        box-shadow:0 8px 20px rgba(0,0,0,.05);
+        border:1px solid #f0ebe0;
+    }
+    .acc-card label{ font-weight:600; color:#14290f; font-size:.85rem; margin-bottom:6px; }
+    .acc-card .form-control{
+        border-radius:10px;
+        border:1px solid #e2ddd0;
+        padding:10px 14px;
+    }
+    .acc-card .form-control:focus{
+        border-color:#d4a24c;
+        box-shadow:0 0 0 .2rem rgba(212,162,76,.18);
+    }
+    .btn-save{
+        background:#0b5313;
+        color:#fff;
+        border:none;
+        padding:11px 28px;
+        border-radius:50px;
+        font-weight:600;
+        font-size:.9rem;
+    }
+    .btn-save:hover{ background:#0e6e19; color:#fff; }
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="acc-topbar">
+  <a href="traveling.html" class="acc-brand">Malabar<span>Voyages</span></a>
+  <div class="acc-topbar-right">
+    <!-- തിരിച്ച് ലോഗിൻ പേജിലേക്ക് (auth.html) പോകാനുള്ള ലിങ്ക് ഇവിടെ നൽകിയിട്ടുണ്ട് -->
+    <a href="auth.html" class="acc-exit"><i class="bi bi-box-arrow-left"></i> Logout</a>
+    <div class="acc-avatar">MV</div>
+  </div>
+</div>
+
+<div class="acc-shell">
+
+  <!-- SIDEBAR -->
+  <div class="acc-sidebar">
+    <ul class="nav flex-column">
+      <li class="nav-item"><a class="nav-link active" href="#overview"><i class="bi bi-grid-1x2-fill"></i> Overview</a></li>
+      <li class="nav-item"><a class="nav-link" href="#trips"><i class="bi bi-airplane-fill"></i> My Trips</a></li>
+      <li class="nav-item"><a class="nav-link" href="#saved"><i class="bi bi-heart-fill"></i> Saved Packages</a></li>
+      <li class="nav-item"><a class="nav-link" href="#profile"><i class="bi bi-person-fill"></i> Profile Details</a></li>
+      <li class="nav-item"><a class="nav-link" href="contact.html"><i class="bi bi-headset"></i> Support</a></li>
+    </ul>
+  </div>
+
+  <!-- MAIN -->
+  <div class="acc-main">
+
+    <div class="acc-welcome" id="overview">
+      <div>
+        <h1>Welcome back!</h1>
+        <p>Your account is on our early-access list — full booking history and live tracking are coming soon.</p>
+      </div>
+      <a href="traveling.html#packages" class="btn-gold">Browse Packages</a>
+    </div>
+
+    <div class="row g-3">
+      <div class="col-6 col-md-3">
+        <div class="acc-stat-card">
+          <i class="bi bi-airplane-fill"></i>
+          <strong>0</strong>
+          <span>Upcoming Trips</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="acc-stat-card">
+          <i class="bi bi-clock-history"></i>
+          <strong>0</strong>
+          <span>Past Trips</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="acc-stat-card">
+          <i class="bi bi-heart-fill"></i>
+          <strong>0</strong>
+          <span>Saved Packages</span>
+        </div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="acc-stat-card">
+          <i class="bi bi-star-fill"></i>
+          <strong>Member</strong>
+          <span>Since 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="acc-section-title" id="trips">My Trips</h2>
+    <div class="acc-empty">
+      <i class="bi bi-airplane"></i>
+      <h5>No trips booked yet</h5>
+      <p>Once you book a package, it'll show up here with dates, transfers, and your travel manager's contact.</p>
+      <a href="traveling.html#packages">Explore Packages</a>
+    </div>
+
+    <h2 class="acc-section-title" id="saved">Saved Packages</h2>
+    <div class="acc-package-mini">
+      <img src="thekkady.jpeg" alt="Kerala Grand Tour">
+      <div>
+        <h6>Kerala Grand Tour</h6>
+        <span>7D / 6N · Munnar · Thekkady · Alleppey</span>
+      </div>
+      <div class="price">
+        <strong>₹27,999</strong>
+        <span>/ person</span>
+      </div>
+    </div>
+    <div class="acc-package-mini">
+      <img src="alappy.jpeg" alt="Backwaters and Beaches">
+      <div>
+        <h6>Backwaters &amp; Beaches</h6>
+        <span>4D / 3N · Alleppey · Kovalam</span>
+      </div>
+      <div class="price">
+        <strong>₹12,499</strong>
+        <span>/ person</span>
+      </div>
+    </div>
+
+    <h2 class="acc-section-title" id="profile">Profile Details</h2>
+    <div class="acc-card">
+      <form action="https://formspree.io/f/mzdnzwkz" method="POST">
+        <input type="hidden" name="_subject" value="Profile update — MalabarVoyages account">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="pf-name">Full Name</label>
+            <input type="text" class="form-control" id="pf-name" name="name" placeholder="Your name">
+          </div>
+          <div class="col-md-6">
+            <label for="pf-email">Email</label>
+            <input type="email" class="form-control" id="pf-email" name="email" placeholder="you@example.com">
+          </div>
+          <div class="col-md-6">
+            <label for="pf-phone">Phone Number</label>
+            <input type="tel" class="form-control" id="pf-phone" name="phone" placeholder="+91 XXXXX XXXXX">
+          </div>
+          <div class="col-md-6">
+            <label for="pf-dest">Preferred Destination</label>
+            <select class="form-select" id="pf-dest" name="destination">
+              <option>Kerala</option>
+              <option>India</option>
+              <option>World</option>
+            </select>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn-save">Save Changes</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

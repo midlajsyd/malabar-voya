@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions - Malabar Voyages</title>
+    
+    <!-- Google Fonts: Inter (Body) + Playfair Display (Headings) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #212529;
+            background-color: #fdf8f0;
+            scroll-behavior: smooth;
+        }
+
+        /* Heading Fonts */
+        h1, h2, h3, h4, h5, .discover {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        /* Navbar */
+        .nav {
+            background-color: #0b5313;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-logo span {
+            color: #d4a24c;
+        }
+
+        .btn-book {
+            background-color: #d4a24c;
+            color: white;
+            font-weight: 500;
+        }
+
+        .btn-book:hover {
+            background-color: #b88a3b;
+            color: white;
+        }
+
+        /* Page Banner */
+        .faq-hero {
+            background: linear-gradient(rgba(11, 83, 19, 0.85), rgba(11, 83, 19, 0.85)), url('wayanad.jpeg');
+            background-size: cover;
+            background-position: center;
+            padding: 120px 0 60px;
+            color: white;
+            text-align: center;
+        }
+
+        .god {
+            display: block;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: #d4a24c;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .discover {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .discover::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 2px;
+            background-color: #d4a24c;
+            border-radius: 100px;
+            position: absolute;
+            left: 50%;
+            bottom: -8px;
+            transform: translateX(-50%);
+        }
+
+        /* FAQ Accordion Styling */
+        .faq-section {
+            padding: 70px 0;
+        }
+
+        .custom-faq-accordion .accordion-item {
+            background-color: #ffffff;
+            border: 1px solid rgba(11, 83, 19, 0.1) !important;
+            border-radius: 14px !important;
+            overflow: hidden;
+        }
+
+        .custom-faq-accordion .accordion-button {
+            background-color: #ffffff;
+            padding: 20px 24px;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            color: #14290f;
+        }
+
+        .custom-faq-accordion .accordion-button:not(.collapsed) {
+            color: #0b5313 !important;
+            background-color: #f4fbf5;
+            box-shadow: inset 0 -1px 0 rgba(212, 162, 76, 0.3);
+        }
+
+        .custom-faq-accordion .accordion-button:focus {
+            box-shadow: none;
+            border-color: rgba(212, 162, 76, 0.5);
+        }
+
+        .custom-faq-accordion .accordion-body {
+            padding: 20px 24px;
+            line-height: 1.75;
+            font-size: 0.95rem;
+            color: #555;
+            background-color: #ffffff;
+        }
+
+        /* Help Card Box */
+        .help-box {
+            background: #ffffff;
+            border: 1px solid rgba(212, 162, 76, 0.4);
+            border-radius: 18px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #0b3d16;
+            color: #f3f3f3;
+            padding: 40px 0 20px;
+            margin-top: 50px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg fixed-top nav w-100">
+        <div class="container">
+            <a class="navbar-brand text-light nav-logo fs-3 fw-bold" href="traveling.html">Malabar<span>Voyages</span></a>
+            <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#faqNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="faqNav">
+                <ul class="navbar-nav ms-auto me-3">
+                    <li class="nav-item"><a class="nav-link text-white" href="traveling.html">Home</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="traveling.html#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="traveling.html#packages">Packages</a></li>
+                    <li class="nav-item"><a class="nav-link text-white active" href="faq.html">FAQ</a></li>
+                    <li class="nav-item"><a class="nav-link text-white" href="contact.html">Contact</a></li>
+                </ul>
+                <a href="https://wa.me/918606531540" class="btn rounded-pill btn-book px-4">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- FAQ HERO BANNER -->
+    <section class="faq-hero">
+        <div class="container">
+            <span class="god">HELP & SUPPORT</span>
+            <h1 class="display-4 fw-bold mb-3">Frequently Asked Questions</h1>
+            <p class="lead text-light mb-0">Everything you need to know about booking your holiday with Malabar Voyages.</p>
+        </div>
+    </section>
+
+    <!-- FAQ ACCORDION SECTION -->
+    <section class="faq-section">
+        <div class="container" style="max-width: 880px;">
+            
+            <div class="accordion custom-faq-accordion" id="faqAccordion">
+                
+                <!-- Question 1 -->
+                <div class="accordion-item mb-3 shadow-sm border-0">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Can I customize the travel itinerary according to my budget?
+                        </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes, absolutely! Every package listed on our website can be customized according to your exact budget, duration, choice of hotels (from standard to luxury resorts), and specific destinations you'd like to visit.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="accordion-item mb-3 shadow-sm border-0">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            Are airport pickups and private cabs included in all packages?
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes! All our tour packages come with dedicated private air-conditioned vehicles. Our professional driver will pick you up from the nearest airport or railway station and stay with you throughout the entire journey for all transfers and sightseeing.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="accordion-item mb-3 shadow-sm border-0">
+                    <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            What is the booking advance and cancellation policy?
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            You can confirm your trip by paying a 20% advance payment. The remaining balance can be settled upon arrival. We offer flexible free rescheduling up to 7 days before your travel date, alongside a transparent cancellation policy.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="accordion-item mb-3 shadow-sm border-0">
+                    <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                            Do you arrange visa assistance for international tours?
+                        </button>
+                    </h2>
+                    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes, for all international destinations such as Bali, Dubai, Singapore, and Europe, our dedicated travel team will guide you through the entire visa process, flight bookings, and travel insurance coverage.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Question 5 -->
+                <div class="accordion-item mb-3 shadow-sm border-0">
+                    <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                            Are Kerala Houseboat meals fresh and customizable?
+                        </button>
+                    </h2>
+                    <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                        <div class="accordion-body">
+                            Yes! Your private houseboat includes a dedicated personal chef who prepares fresh, traditional Kerala meals (lunch, evening tea/snacks, dinner, and breakfast). We also cater to vegetarian, vegan, and specific dietary needs upon request.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- STILL NEED HELP BOX -->
+            <div class="help-box mt-5">
+                <h4 class="fw-bold mb-2" style="color: #0b5313;">Still have questions?</h4>
+                <p class="text-muted mb-4">Can't find the answer you're looking for? Please reach out to our friendly team.</p>
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                   <a href="https://wa.me/918606531540?text=Hi%2C%20I%20have%20a%20question%20about%20your%20tours" class="btn btn-success rounded-pill px-4 py-2">
+    <i class="bi bi-whatsapp me-2"></i> +91 86065 31540
+</a>
+                        <i class="bi bi-whatsapp me-2"></i>Chat on WhatsApp
+                    </a>
+                    <a href="mailto:midlajnvs@gmail.com" class="btn btn-outline-dark rounded-pill px-4 py-2">
+                        <i class="bi bi-envelope me-2"></i>Email Support
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p class="mb-1">&copy; 2026 MalabarVoyages. All rights reserved.</p>
+            <small class="text-muted">Designed with <span style="color:#d4a24c;">♥</span> in Kerala</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

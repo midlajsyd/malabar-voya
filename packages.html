@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packages & Testimonials | Malabar Voyages</title>
+
+    <!-- Bootstrap 5 & Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdf8f0;
+            color: #14290f;
+        }
+
+        .god {
+            display: block;
+            font-size: 12px;
+            letter-spacing: 3px;
+            padding-top: 7px;
+            color: #e4ab47;
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .discover {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+            color: inherit;
+        }
+
+        .discover::after {
+            content: "";
+            display: block;
+            width: 120px;
+            height: 1px;
+            background-color: #d4a24c;
+            border-radius: 100px;
+            position: absolute;
+            left: 50%;
+            bottom: -5px;
+            transform: translateX(-50%);
+        }
+
+        .hill {
+            color: gray;
+            letter-spacing: 0.5px;
+        }
+
+        /* ==================== BACK TO HOME BUTTON ==================== */
+        .btn-back-home {
+            background: rgba(11, 83, 19, 0.75);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(8px);
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 8px 18px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .18);
+            border-radius: 50px;
+            margin: 18px 0 0 18px;
+        }
+
+        .btn-back-home:hover {
+            background: #d4a24c;
+            color: #0b5313;
+            border-color: #d4a24c;
+        }
+
+        @media (max-width: 767.98px) {
+            .btn-back-home {
+                padding: 7px 14px;
+                font-size: .78rem;
+                margin: 12px 0 0 12px;
+            }
+        }
+
+        /* ==================== PACKAGES SECTION ==================== */
+        .packages {
+            width: 100%;
+            background-color: #fdf8f0;
+            padding: 80px 0;
+        }
+
+        .package-card {
+            background: #fff;
+            border-radius: 18px;
+            overflow: hidden;
+            height: 100%;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+            border: 1px solid rgba(11, 83, 17, .08);
+            transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            cursor: pointer;
+            margin-bottom: 0;
+            text-decoration: none !important;
+            color: inherit !important;
+        }
+
+        .package-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 22px 40px rgba(0, 0, 0, .14);
+            border-color: #d4a24c;
+        }
+
+        /* Comparison effect: hovering one card dims the rest of the row */
+        .package-row:has(.package-card:hover) .package-card:not(:hover) {
+            opacity: .55;
+            transform: none;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .08);
+            border-color: rgba(11, 83, 17, .08);
+        }
+
+        .package-media {
+            position: relative;
+            height: 210px;
+            overflow: hidden;
+        }
+
+        .package-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform .5s ease;
+        }
+
+        .package-card:hover .package-media img {
+            transform: scale(1.07);
+        }
+
+        .package-duration {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: rgba(11, 83, 17, .88);
+            color: #fff;
+            font-size: .78rem;
+            letter-spacing: .5px;
+            padding: 5px 12px;
+            border-radius: 50px;
+            backdrop-filter: blur(4px);
+            z-index: 2;
+        }
+
+        .package-body {
+            padding: 22px 22px 24px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .package-body h5 {
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: #14290f;
+        }
+
+        .package-route {
+            color: #8a8a8a;
+            font-size: .85rem;
+            margin-bottom: 14px;
+        }
+
+        .package-features {
+            list-style: none;
+            padding-left: 0;
+            margin-bottom: 18px;
+            flex-grow: 1;
+        }
+
+        .package-features li {
+            font-size: .88rem;
+            color: #4a4a4a;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .package-features li i {
+            color: #0b5311;
+            margin-top: 3px;
+        }
+
+        .package-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-top: 1px solid #f0ebe0;
+            padding-top: 16px;
+        }
+
+        .package-price span {
+            display: block;
+            font-size: .72rem;
+            color: #9a9a9a;
+            letter-spacing: .5px;
+        }
+
+        .package-price strong {
+            font-size: 1.35rem;
+            color: #0b5311;
+        }
+
+        .package-price strong small {
+            font-size: .7rem;
+            color: #9a9a9a;
+            font-weight: 500;
+        }
+
+        .btn-select {
+            pointer-events: none;
+            min-width: 90px;
+        }
+
+        .btn-book {
+            background-color: #d4a24c;
+            color: white;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .btn-book:hover {
+            background-color: #b88a3b;
+            color: white;
+        }
+
+        /* ==================== TESTIMONIALS SECTION ==================== */
+        .testi-bento {
+            padding: 90px 0;
+            background: #fdf8f0;
+            border-top: 1px solid rgba(11, 83, 17, 0.08);
+        }
+
+        .testi-bento-left {
+            padding-right: 20px;
+        }
+
+        .testi-bento-eyebrow {
+            color: #d4a24c;
+        }
+
+        .testi-bento-title {
+            font-size: 2.6rem;
+            font-weight: 700;
+            color: #0e2b12;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .testi-bento-sub {
+            color: #5c5c5c;
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 28px;
+            max-width: 420px;
+        }
+
+        .testi-bento-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: #0e2b12;
+            color: #fff;
+            border-radius: 50px;
+            padding: 14px 24px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: .95rem;
+            transition: 0.3s;
+        }
+
+        .testi-bento-cta:hover {
+            background: #14421b;
+            color: #fff;
+        }
+
+        .testi-bento-cta i {
+            background: #d4a24c;
+            color: #0e2b12;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .testi-bento-facepile {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-top: 30px;
+        }
+
+        .testi-bento-facepile .stack {
+            display: flex;
+        }
+
+        .testi-bento-facepile .stack img {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid #fdf8f0;
+            object-fit: cover;
+            margin-left: -10px;
+        }
+
+        .testi-bento-facepile .stack img:first-child {
+            margin-left: 0;
+        }
+
+        .testi-bento-facepile span {
+            font-size: .82rem;
+            color: #5c5c5c;
+        }
+
+        /* Bento Cards */
+        .big-card {
+            height: 430px;
+        }
+
+        .small-card {
+            height: 200px;
+        }
+
+        .testi-bento-cell {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Photo cells */
+        .testi-bento-cell.photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            inset: 0;
+        }
+
+        .testi-bento-cell.photo .overlay {
+            position: relative;
+            z-index: 2;
+            background: linear-gradient(to top, rgba(10, 25, 12, .85) 0%, rgba(10, 25, 12, 0) 70%);
+            padding: 14px;
+            width: 100%;
+        }
+
+        .testi-bento-cell.photo .name {
+            color: #fff;
+            font-weight: 700;
+            font-size: .85rem;
+            margin-bottom: 1px;
+        }
+
+        .testi-bento-cell.photo .role {
+            color: #d7e6d4;
+            font-size: .72rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .testi-bento-cell.photo .role .bi-patch-check-fill {
+            color: #d4a24c;
+        }
+
+        /* Quote cells */
+        .testi-bento-cell.quote {
+            padding: 16px;
+            justify-content: center;
+        }
+
+        .testi-bento-cell.quote.mint {
+            background: #e5f2e6;
+        }
+
+        .testi-bento-cell.quote.plum {
+            background: #3c2748;
+            color: #fff;
+        }
+
+        .testi-bento-cell.quote.gold {
+            background: linear-gradient(150deg, #e8b154, #d4a24c);
+            color: #2c1c05;
+        }
+
+        .testi-bento-cell.quote.peach {
+            background: #fbe8d6;
+            color: #5c3a1e;
+        }
+
+        .testi-bento-cell.quote p {
+            font-size: .85rem;
+            line-height: 1.5;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .testi-bento-cell.quote .cat {
+            font-size: .68rem;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+            opacity: .7;
+            margin-top: 6px;
+            display: block;
+        }
+
+        @media (max-width: 767.98px) {
+            .big-card {
+                height: 280px;
+            }
+
+            .small-card {
+                height: 200px;
+            }
+
+            .home-btn {
+                top: 12px;
+                left: 12px;
+                padding: 8px 16px;
+                font-size: .8rem;
+            }
+        }
+
+        /* Trust Strip */
+        .testi-trustline {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 34px;
+            margin-top: 60px;
+            padding-top: 34px;
+            border-top: 1px solid rgba(14, 43, 18, .12);
+        }
+
+        .testi-trustline div {
+            text-align: center;
+        }
+
+        .testi-trustline strong {
+            display: block;
+            font-size: 1.6rem;
+            color: #0e2b12;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .testi-trustline span {
+            font-size: .78rem;
+            color: #7a7a7a;
+            letter-spacing: .4px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- BACK TO HOME BUTTON -->
+<a href="main.html" class="btn rounded-pill btn-back-home">
+    <i class="bi bi-arrow-left"></i> Back to Home
+</a>
+
+<!-- 1. PACKAGES SECTION -->
+<section class="packages" id="packages">
+  <div class="container">
+
+    <div class="text-center mb-5">
+      <span class="god">CURATED FOR YOU</span>
+      <h2 class="text-dark discover">Our Travel Packages</h2>
+      <p class="hill">Tap a package to continue straight to booking</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-2 package-row">
+
+      <!-- Munnar Wayanad -->
+      <div class="col">
+        <a href="login.html?package=Munnar%20%26%20Wayanad%20Escape" class="package-card p-0">
+          <div class="package-media">
+            <img src="munnar.jpeg" alt="Munnar Wayanad Escape">
+            <span class="package-duration">5D / 4N</span>
+          </div>
+          <div class="package-body">
+            <h5>Munnar &amp; Wayanad Escape</h5>
+            <p class="package-route">Tea gardens to rainforest trails</p>
+            <ul class="package-features">
+              <li><i class="bi bi-check-circle-fill"></i> Hotel stay with breakfast</li>
+              <li><i class="bi bi-check-circle-fill"></i> Private cab, all transfers</li>
+              <li><i class="bi bi-check-circle-fill"></i> Guided plantation &amp; trekking</li>
+            </ul>
+            <div class="package-footer">
+              <div class="package-price">
+                <span>Starting from</span>
+                <strong>₹14,999 <small>/ person</small></strong>
+              </div>
+              <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 btn-select">Select</button>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Alleppey Kovalam -->
+      <div class="col">
+        <a href="login.html?package=Backwaters%20%26%20Beaches" class="package-card p-0">
+          <div class="package-media">
+            <img src="alappy.jpeg" alt="Backwaters and Beaches">
+            <span class="package-duration">4D / 3N</span>
+          </div>
+          <div class="package-body">
+            <h5>Backwaters &amp; Beaches</h5>
+            <p class="package-route">Alleppey houseboat to Kovalam shore</p>
+            <ul class="package-features">
+              <li><i class="bi bi-check-circle-fill"></i> Overnight houseboat cruise</li>
+              <li><i class="bi bi-check-circle-fill"></i> Beach resort stay</li>
+              <li><i class="bi bi-check-circle-fill"></i> All meals included</li>
+            </ul>
+            <div class="package-footer">
+              <div class="package-price">
+                <span>Starting from</span>
+                <strong>₹12,499 <small>/ person</small></strong>
+              </div>
+              <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 btn-select">Select</button>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Kerala Grand Tour -->
+      <div class="col">
+        <a href="login.html?package=Kerala%20Grand%20Tour" class="package-card p-0">
+          <div class="package-media">
+            <img src="thekkady.jpeg" alt="Kerala Grand Tour">
+            <span class="package-duration">7D / 6N</span>
+          </div>
+          <div class="package-body">
+            <h5>Kerala Grand Tour</h5>
+            <p class="package-route">Munnar · Thekkady · Alleppey · Kovalam</p>
+            <ul class="package-features">
+              <li><i class="bi bi-check-circle-fill"></i> Hotels across all 4 stops</li>
+              <li><i class="bi bi-check-circle-fill"></i> Periyar wildlife safari</li>
+              <li><i class="bi bi-check-circle-fill"></i> Dedicated travel manager</li>
+            </ul>
+            <div class="package-footer">
+              <div class="package-price">
+                <span>Starting from</span>
+                <strong>₹27,999 <small>/ person</small></strong>
+              </div>
+              <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 btn-select">Select</button>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Golden Triangle -->
+      <div class="col">
+        <a href="login.html?package=Golden%20Triangle%20Tour" class="package-card p-0">
+          <div class="package-media">
+            <img src="tajmahal.jpeg" alt="Golden Triangle Tour">
+            <span class="package-duration">6D / 5N</span>
+          </div>
+          <div class="package-body">
+            <h5>Golden Triangle Tour</h5>
+            <p class="package-route">Delhi · Agra · Jaipur</p>
+            <ul class="package-features">
+              <li><i class="bi bi-check-circle-fill"></i> Sunrise Taj Mahal visit</li>
+              <li><i class="bi bi-check-circle-fill"></i> Heritage hotel stays</li>
+              <li><i class="bi bi-check-circle-fill"></i> AC coach between cities</li>
+            </ul>
+            <div class="package-footer">
+              <div class="package-price">
+                <span>Starting from</span>
+                <strong>₹22,499 <small>/ person</small></strong>
+              </div>
+              <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 btn-select">Select</button>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Bali Honeymoon -->
+      <div class="col">
+        <a href="login.html?package=Bali%20Honeymoon%20Special" class="package-card p-0">
+          <div class="package-media">
+            <img src="bali.jpeg" alt="Bali Honeymoon">
+            <span class="package-duration">6D / 5N</span>
+          </div>
+          <div class="package-body">
+            <h5>Bali Honeymoon Special</h5>
+            <p class="package-route">Ubud rice terraces to Seminyak beach</p>
+            <ul class="package-features">
+              <li><i class="bi bi-check-circle-fill"></i> Private villa with pool</li>
+              <li><i class="bi bi-check-circle-fill"></i> Candlelight dinner included</li>
+              <li><i class="bi bi-check-circle-fill"></i> Airport transfers &amp; visa help</li>
+            </ul>
+            <div class="package-footer">
+              <div class="package-price">
+                <span>Starting from</span>
+                <strong>₹64,999 <small>/ person</small></strong>
+              </div>
+              <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 btn-select">Select</button>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Maldives -->
+      <div class="col">
+        <a href="login.html?package=Maldives%20Overwater%20Getaway" class="package-card p-0">
+          <div class="package-media">
+            <img src="malidives.jpeg" alt="Maldives Overwater Getaway">
+            <span class="package-duration">4D / 3N</span>
+          </div>
+          <div class="package-body">
+            <h5>Maldives Overwater Getaway</h5>
+            <p class="package-route">Private lagoon-view villa stay</p>
+            <ul class="package-features">
+              <li><i class="bi bi-check-circle-fill"></i> Overwater villa, breakfast daily</li>
+              <li><i class="bi bi-check-circle-fill"></i> Speedboat transfers</li>
+              <li><i class="bi bi-check-circle-fill"></i> Snorkelling session included</li>
+            </ul>
+            <div class="package-footer">
+              <div class="package-price">
+                <span>Starting from</span>
+                <strong>₹89,999 <small>/ person</small></strong>
+              </div>
+              <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 btn-select">Select</button>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- 2. TESTIMONIALS SECTION -->
+<section class="testi-bento" id="testimonials">
+  <div class="container">
+    <div class="row align-items-center g-5">
+
+      <!-- Left copy -->
+      <div class="col-lg-4">
+        <div class="testi-bento-left">
+          <span class="god testi-bento-eyebrow">TRAVELER STORIES</span>
+          <h2 class="testi-bento-title discover">Real trips.<br>Real feedback.</h2>
+          <p class="testi-bento-sub">Over 10,000 travelers have trusted us with their Kerala journeys, honeymoons, and family getaways. Here's what a few of them had to say.</p>
+          <a href="#packages" class="testi-bento-cta">Plan your trip <i class="bi bi-arrow-right"></i></a>
+
+          <div class="testi-bento-facepile">
+            <div class="stack">
+              <img src="random1.png" alt="Traveler 1">
+              <img src="random2.png" alt="Traveler 2">
+              <img src="random3.png" alt="Traveler 3">
+            </div>
+            <span>Joined by 700+ this month</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right bento grid -->
+      <div class="col-lg-8">
+
+        <!-- Row 1: Big photo | Stacked quotes | Tall photo -->
+        <div class="row g-3">
+
+          <div class="col-md-6">
+            <div class="testi-bento-cell photo big-card">
+              <img src="testimany1.png" alt="Priya Nair">
+              <div class="overlay">
+                <div class="name">Priya Nair</div>
+                <div class="role"><i class="bi bi-patch-check-fill"></i> Kerala Grand Tour</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 d-flex flex-column gap-3">
+            <div class="testi-bento-cell quote mint flex-fill">
+              <p>"Booked within 72 hours, exactly the way we asked."</p>
+              <span class="cat">Quick &amp; adaptable</span>
+            </div>
+            <div class="testi-bento-cell quote plum flex-fill">
+              <p>"Every transfer, every timing — handled without a single call from us."</p>
+              <span class="cat">Stress-free planning</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="testi-bento-cell photo big-card">
+              <img src="fathimabeevi.png" alt="Fathima Beevi">
+              <div class="overlay">
+                <div class="name">Fathima Beevi</div>
+                <div class="role"><i class="bi bi-patch-check-fill"></i> Backwaters Trip</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Row 2: Small photo | Gold quote | Peach quote -->
+        <div class="row g-3 mt-1">
+
+          <div class="col-md-4">
+            <div class="testi-bento-cell photo small-card">
+              <img src="couple.png" alt="Arjun Menon">
+              <div class="overlay">
+                <div class="name">Arjun Menon</div>
+                <div class="role"><i class="bi bi-patch-check-fill"></i> Honeymoon Special</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="testi-bento-cell quote gold small-card">
+              <p>"10,000+ happy travelers and counting — join us next."</p>
+              <span class="cat">Join the journey</span>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="testi-bento-cell quote peach small-card">
+              <p>"Sunrise at the Taj with almost no crowd — they got our timing exactly right."</p>
+              <span class="cat">Perfectly timed</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="testi-trustline">
+      <div><strong>10k+</strong><span>Happy Travelers</span></div>
+      <div><strong>4.8/5</strong><span>Average Rating</span></div>
+      <div><strong>55+</strong><span>Destinations Covered</span></div>
+      <div><strong>8+</strong><span>Years of Trust</span></div>
+    </div>
+
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

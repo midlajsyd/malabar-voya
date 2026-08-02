@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Munnar | MalabarVoyages</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        body{
+            font-family:'inter',sans-serif;
+            color:black;
+        }
+        /* ===== NAV (same as home) ===== */
+        .nav{
+            background-color: rgb(11, 83, 11);
+            position: fixed;
+            z-index: 1000;
+            width:100%;
+        }
+        .nav-logo span{ color: #d4a24c; }
+        .btn-book{ background-color: #d4a24c; color: white; border:none; }
+        .btn-book:hover{ background-color: #b6863c; color:white; }
+        .nav-link{ color: #fff !important; }
+        .offcanvas{ background-color: green !important; }
+        .navbar-nav .dropdown-menu{
+            background-color: #0b5313;
+            border: 1px solid #d4a24c;
+            border-radius: 10px;
+            padding: 8px;
+        }
+        .navbar-nav .dropdown-item{ color: #fff; border-radius: 6px; padding: 8px 14px; font-size: .9rem; }
+        .navbar-nav .dropdown-item:hover{ background-color: #d4a24c; color: #0b5313; }
+
+        /* ===== DESTINATION HERO (reusable — swap bg image + text per destination) ===== */
+        .dest-hero{
+            position: relative;
+            min-height: 60vh;
+            display:flex;
+            align-items:flex-end;
+            background-image: linear-gradient(rgba(0,0,0,.25), rgba(0,0,0,.75)), url(munnar.jpeg);
+            background-size: cover;
+            background-position: center;
+            color:#fff;
+            padding-top: 90px;   /* FIX: keeps content clear of the fixed navbar */
+            padding-bottom: 50px;
+        }
+        .dest-hero .breadcrumb-link{
+            color:#d4a24c;
+            text-decoration:none;
+            font-size:.85rem;
+            letter-spacing:.5px;
+        }
+        .dest-hero h1{
+            font-size: clamp(2.2rem, 5vw, 4rem);
+            font-weight:800;
+            margin: 10px 0 6px;
+        }
+        .dest-hero .dest-tagline{
+            font-size:1.05rem;
+            color:#f3f3f3;
+            max-width:600px;
+        }
+        .dest-quickfacts{
+            display:flex;
+            gap:26px;
+            flex-wrap:wrap;
+            margin-top:18px;
+        }
+        .dest-quickfacts div{
+            display:flex;
+            align-items:center;
+            gap:8px;
+            font-size:.9rem;
+            background:rgba(255,255,255,.12);
+            backdrop-filter:blur(6px);
+            padding:8px 14px;
+            border-radius:50px;
+            border:1px solid rgba(255,255,255,.25);
+        }
+        .dest-quickfacts i{ color:#d4a24c; }
+
+        /* ===== SECTION LABELS (reuse home page style) ===== */
+        .god{
+            display: block;
+            font-size: 12px;
+            letter-spacing: 3px;
+            color: #d4a24c;
+            padding-bottom: 5px;
+        }
+        .discover{
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .discover::after{
+            content:"";
+            display:block;
+            width:120px;
+            height:1px;
+            background-color:#d4a24c;
+            border-radius:100px;
+            position:absolute;
+            left:50%;
+            bottom:-5px;
+            transform:translateX(-50%);
+        }
+
+        /* ===== ABOUT ===== */
+        .dest-about{ background:#fdf8f0; padding:70px 0; }
+        .dest-about p{ font-size:1.02rem; line-height:1.85; color:#3d3d3d; }
+
+        /* ===== GALLERY (reuse travel-card image treatment) ===== */
+        .dest-gallery{ background:#fff; padding:70px 0; }
+        .gallery-img{
+            border-radius:14px;
+            overflow:hidden;
+            height:220px;
+            box-shadow:0 10px 25px rgba(0,0,0,.12);
+        }
+        .gallery-img img{
+            width:100%; height:100%; object-fit:cover; transition:transform .5s ease;
+        }
+        .gallery-img:hover img{ transform:scale(1.08); }
+
+        /* ===== HIGHLIGHTS (reusable card unit — copy this block per attraction) ===== */
+        .dest-highlights{ background:#142032; padding:70px 0; }
+        .highlight-card{
+            background:rgba(255,255,255,.05);
+            border:1px solid rgba(212,162,76,.25);
+            border-radius:16px;
+            padding:26px 22px;
+            height:100%;
+            transition:.3s;
+        }
+        .highlight-card:hover{
+            transform:translateY(-6px);
+            border-color:#d4a24c;
+        }
+        .highlight-card i{
+            font-size:1.8rem;
+            color:#d4a24c;
+            margin-bottom:14px;
+            display:block;
+        }
+        .highlight-card h5{ color:#fff; font-weight:700; margin-bottom:8px; }
+        .highlight-card p{ color:#c9c9c9; font-size:.9rem; margin-bottom:0; }
+
+        /* ===== INFO STRIP: Best time / How to reach ===== */
+        .dest-info{ background:#fdf8f0; padding:70px 0; }
+        .info-box{
+            background:#fff;
+            border-radius:16px;
+            padding:30px;
+            height:100%;
+            box-shadow:0 10px 25px rgba(0,0,0,.06);
+            border-left:4px solid #d4a24c;
+        }
+        .info-box h5{ color:#0b5313; font-weight:700; margin-bottom:14px; }
+        .info-box ul{ padding-left:0; list-style:none; margin-bottom:0; }
+        .info-box li{
+            font-size:.92rem;
+            color:#4a4a4a;
+            margin-bottom:10px;
+            display:flex;
+            gap:10px;
+        }
+        .info-box li i{ color:#0b5313; margin-top:3px; }
+
+        /* ===== RELATED PACKAGES (identical structure to home page package-card) ===== */
+        .dest-packages{ background:#fff; padding:70px 0; }
+        .package-card{
+            background:#fdf8f0;
+            border-radius:18px;
+            overflow:hidden;
+            height:100%;
+            box-shadow:0 10px 25px rgba(0,0,0,.08);
+            border:1px solid rgba(11,83,17,.08);
+            transition:.3s;
+        }
+        .package-card:hover{ transform:translateY(-8px); box-shadow:0 22px 40px rgba(0,0,0,.14); }
+        .package-media{ position:relative; height:190px; overflow:hidden; }
+        .package-media img{ width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+        .package-card:hover .package-media img{ transform:scale(1.07); }
+        .package-duration{
+            position:absolute; top:14px; left:14px;
+            background:rgba(11,83,17,.88); color:#fff; font-size:.78rem;
+            padding:5px 12px; border-radius:50px;
+        }
+        .package-body{ padding:20px 22px 24px; }
+        .package-body h5{ font-weight:700; color:#14290f; margin-bottom:4px; }
+        .package-route{ color:#8a8a8a; font-size:.85rem; margin-bottom:14px; }
+        .package-footer{ display:flex; align-items:center; justify-content:space-between; border-top:1px solid #f0ebe0; padding-top:16px; }
+        .package-price span{ display:block; font-size:.72rem; color:#9a9a9a; }
+        .package-price strong{ font-size:1.3rem; color:#0b5311; }
+
+        /* ===== CTA BAND ===== */
+        .dest-cta{
+            background: linear-gradient(120deg, #0b5313, #14290f);
+            padding:60px 0;
+            text-align:center;
+            color:#fff;
+        }
+        .dest-cta h3{ font-weight:800; margin-bottom:10px; }
+        .dest-cta p{ color:#e6e6e6; margin-bottom:24px; }
+        .btn-whatsapp{
+            background:#25D366;
+            color:#fff;
+            border:none;
+        }
+        .btn-whatsapp:hover{ background:#1ebd59; color:#fff; }
+
+        /* ===== FOOTER (same as home) ===== */
+        .footer{
+            background-image: linear-gradient(180deg, rgba(10,15,12,.35) 0%, rgba(10,15,12,.85) 100%), url(kerala.png);
+            background-size: cover;
+            background-position: center;
+            color: #f3f3f3;
+            padding-top: 60px;
+        }
+        .footer h5{ color:#fff; font-weight:700; margin-bottom:20px; }
+        .footer h5::after{ content:""; display:block; width:40px; height:2px; background:#d4a24c; margin-top:8px; }
+        .footer p, .footer a{ color:#cfcfcf; text-decoration:none; font-size:.95rem; }
+        .footer ul{ list-style:none; padding-left:0; }
+        .footer ul li{ margin-bottom:10px; }
+        .footer ul li a:hover{ color:#d4a24c; }
+        .footer-bottom{ border-top:1px solid rgba(255,255,255,.1); margin-top:30px; padding:20px 0; font-size:.85rem; text-align:center; color:#a8a8a8; }
+    </style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="navbar navbar-expand-lg fixed-top nav">
+  <div class="container-fluid">
+    <a class="navbar-brand text-light nav-logo" href="index.html">Malabar<span>Voyages</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
+      <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">Destinations</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="destination.html#kerala">Kerala</a></li>
+              <li><a class="dropdown-item" href="destination.html#india">India</a></li>
+              <li><a class="dropdown-item" href="destination.html#world">World</a></li>
+            </ul>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="index.html#packages">Packages</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        </ul>
+        <a href="https://wa.me/918606531540?text=Hi%2C%20I%27m%20interested%20in%20booking%20a%20Munnar%20trip" class="btn rounded-pill btn-book">Book Now</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ DESTINATION HERO (swap image/text per page) ============ -->
+<section class="dest-hero">
+  <div class="container">
+    <a href="destination.html#kerala" class="breadcrumb-link"><i class="bi bi-arrow-left"></i> Back to Kerala</a>
+    <h1>Munnar</h1>
+    <p class="dest-tagline">Rolling tea gardens, cool misty mornings, and mountain views that stay with you long after you leave.</p>
+    <div class="dest-quickfacts">
+      <div><i class="bi bi-geo-alt-fill"></i> Idukki, Kerala</div>
+      <div><i class="bi bi-star-fill"></i> 4.8 Rating</div>
+      <div><i class="bi bi-calendar-check"></i> Best: Sep – Mar</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="dest-about">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span class="god">ABOUT THE PLACE</span>
+      <h2 class="text-dark discover">Why Visit Munnar</h2>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-9">
+        <p>Munnar sits nearly 1,600 metres above sea level in the Western Ghats, where three mountain streams meet among endless carpets of tea. Once the summer retreat of British planters, it has kept its cool climate and unhurried pace while becoming one of South India's most loved hill stations.</p>
+        <p>Mornings here begin in mist, with tea pickers moving between manicured rows and the Anamudi peak, the highest point in South India, watching over it all. Beyond the plantations, Munnar opens into spice gardens, waterfalls, and the rare Neelakurinji blooms that colour the hills blue once every twelve years.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ GALLERY (reuse gallery-img block per photo) ============ -->
+<section class="dest-gallery">
+  <div class="container">
+    <div class="text-center mb-4">
+      <span class="god">GALLERY</span>
+      <h2 class="text-dark discover">A Glimpse of Munnar</h2>
+    </div>
+    <div class="row g-3">
+      <div class="col-6 col-md-4">
+        <div class="gallery-img"><img src="munnar.jpeg" alt="Munnar tea gardens"></div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="gallery-img"><img src="munnargallery.jpeg" alt="Munnar hills"></div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="gallery-img"><img src="munnar.jpeg" alt="Munnar mist"></div>
+      </div>
+    </div>
+    <p class="text-center text-muted mt-3" style="font-size:.85rem;">
+      <i class="bi bi-info-circle"></i> Add munnar-2.jpeg, munnar-3.jpeg etc. for more variety once you have extra photos.
+    </p>
+  </div>
+</section>
+
+<!-- ============ HIGHLIGHTS (copy one highlight-card col per attraction) ============ -->
+<section class="dest-highlights">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="god">THINGS TO DO</span>
+      <h2 class="text-light discover">Top Attractions</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-6 col-lg-3">
+        <div class="highlight-card">
+          <i class="bi bi-flower1"></i>
+          <h5>Tea Gardens</h5>
+          <p>Walk through the plantations and visit the Tea Museum to see how the leaf is made.</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="highlight-card">
+          <i class="bi bi-tree-fill"></i>
+          <h5>Eravikulam Park</h5>
+          <p>Home to the endangered Nilgiri Tahr and sweeping views of the Rajamala hills.</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="highlight-card">
+          <i class="bi bi-signpost-2-fill"></i>
+          <h5>Trekking Trails</h5>
+          <p>Guided treks through Kolukkumalai for a sunrise above the clouds.</p>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="highlight-card">
+          <i class="bi bi-camera-fill"></i>
+          <h5>Photo Points</h5>
+          <p>Top Station and Echo Point offer some of Kerala's most photographed views.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INFO: BEST TIME / HOW TO REACH ============ -->
+<section class="dest-info">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="info-box">
+          <h5><i class="bi bi-sun-fill"></i> Best Time to Visit</h5>
+          <ul>
+            <li><i class="bi bi-check-circle-fill"></i> September to March — pleasant, cool weather, ideal for sightseeing</li>
+            <li><i class="bi bi-check-circle-fill"></i> Avoid heavy monsoon months (June–Aug) for outdoor treks</li>
+            <li><i class="bi bi-check-circle-fill"></i> Carry light woollens, evenings can drop below 15°C</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="info-box">
+          <h5><i class="bi bi-signpost-split-fill"></i> How to Reach</h5>
+          <ul>
+            <li><i class="bi bi-airplane-fill"></i> Nearest airport: Kochi (110 km, ~3 hrs by road)</li>
+            <li><i class="bi bi-train-front-fill"></i> Nearest railway: Aluva / Ernakulam</li>
+            <li><i class="bi bi-car-front-fill"></i> Well connected by road from Kochi and Madurai</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RELATED PACKAGES (copy one .col per matching package) ============ -->
+<section class="dest-packages">
+  <div class="container">
+    <div class="text-center mb-5">
+      <span class="god">PLAN YOUR TRIP</span>
+      <h2 class="text-dark discover">Packages Covering Munnar</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="package-card">
+          <div class="package-media">
+            <img src="munnar.jpeg" alt="Munnar Wayanad Escape">
+            <span class="package-duration">5D / 4N</span>
+          </div>
+          <div class="package-body">
+            <h5>Munnar &amp; Wayanad Escape</h5>
+            <p class="package-route">Tea gardens to rainforest trails</p>
+            <div class="package-footer">
+              <div class="package-price"><span>Starting from</span><strong>₹14,999</strong></div>
+              <a href="main.html" class="btn btn-sm btn-outline-success rounded-pill px-3">View</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="package-card">
+          <div class="package-media">
+            <img src="thekkady.jpeg" alt="Kerala Grand Tour">
+            <span class="package-duration">7D / 6N</span>
+          </div>
+          <div class="package-body">
+            <h5>Kerala Grand Tour</h5>
+            <p class="package-route">Munnar · Thekkady · Alleppey · Kovalam</p>
+            <div class="package-footer">
+              <div class="package-price"><span>Starting from</span><strong>₹27,999</strong></div>
+              <a href="packages.html" class="btn btn-sm btn-outline-success rounded-pill px-3">View</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="dest-cta">
+  <div class="container">
+    <h3>Ready to experience Munnar?</h3>
+    <p>Chat with our travel team and we'll plan it around your dates and budget.</p>
+    <a href="https://wa.me/918606531540?text=Hi%2C%20I%27m%20interested%20in%20a%20Munnar%20trip" class="btn btn-whatsapp rounded-pill px-4 py-2 me-2">
+      <i class="bi bi-whatsapp"></i> Chat on WhatsApp
+    </a>
+    <a href="contact.html" class="btn btn-outline-light rounded-pill px-4 py-2">Enquire by Email</a>
+  </div>
+</section>
+
+<!-- ============ FOOTER (same as home) ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-4 col-md-6">
+        <h5 class="fs-4 mb-3">Malabar<span style="color:#d4a24c;">Voyages</span></h5>
+        <p>Handcrafted journeys from the heart of Kerala's backwaters to breathtaking destinations across the globe.</p>
+      </div>
+      <div class="col-lg-2 col-md-6">
+        <h5>Explore</h5>
+        <ul>
+          <li><a href="main.html">Home</a></li>
+          <li><a href="destination.html#kerala">Kerala</a></li>
+          <li><a href="destination.html#india">India</a></li>
+          <li><a href="destination.html#world">World</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h5>Top Destinations</h5>
+        <ul>
+          <li><a href="munnar.html">Munnar</a></li>
+          <li><a href="alappy.html">Alleppey</a></li>
+          <li><a href="bali.html">Bali, Indonesia</a></li>
+          <li><a href="maldives.html">Maldives</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h5>Contact</h5>
+        <ul>
+          <li><a href="https://wa.me/918606531540" style="color:#cfcfcf;text-decoration:none;"><i class="bi bi-whatsapp"></i> +91 86065 31540</a></li>
+          <li><a href="mailto:midlajnvs@gmail.com" style="color:#cfcfcf;text-decoration:none;"><i class="bi bi-envelope"></i> midlajnvs@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 MalabarVoyages. All rights reserved.</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

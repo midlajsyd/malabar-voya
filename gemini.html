@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bento Gallery — MalabarVoyages</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdf8f0;
+        }
+        .nav-custom {
+            background-color: #0b5313 !important;
+        }
+        .nav-logo span {
+            color: #d4a24c;
+        }
+        .btn-book {
+            background-color: #d4a24c;
+            color: white;
+        }
+        .btn-book:hover {
+            background-color: #e0af5c;
+            color: white;
+        }
+        
+        /* Bento Grid Heights */
+        .bento-tall {
+            height: 410px;
+        }
+        .bento-short {
+            height: 200px;
+        }
+        .bento-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        .bento-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .bento-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 60%);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 16px;
+            color: white;
+        }
+
+        /* Fixed Carousel Control Icons (Dark Filtered for Light Background) */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: rgba(11, 83, 19, 0.85);
+            border-radius: 50%;
+            padding: 20px;
+        }
+
+        /* =======================================================
+           NO-JS TAB HIGHLIGHTING USING BOOTSTRAP INDICATORS
+           ======================================================= */
+        .custom-bento-tabs {
+            position: static !important;
+            margin: 0 !important;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 10px;
+        }
+        .custom-bento-tabs button {
+            text-indent: 0 !important; /* ഡിഫോൾട്ട് ബൂട്ട്സ്ട്രാപ്പ് ലൈൻ ഒളിപ്പിക്കാൻ */
+            width: auto !important;
+            height: auto !important;
+            opacity: 1 !important;
+            background-color: transparent !important;
+            color: #0b5313 !important;
+            font-weight: 600;
+            border: 1px solid #0b5313 !important;
+            border-radius: 30px !important;
+            padding: 8px 25px !important;
+            transition: all 0.3s ease;
+        }
+        /* ആക്ടീവ് സ്ലൈഡിനൊപ്പം ടാബ് ഹൈലൈറ്റ് ചെയ്യാൻ */
+        .custom-bento-tabs button.active {
+            background-color: #d4a24c !important;
+            color: #0b5313 !important;
+            border-color: #d4a24c !important;
+            box-shadow: 0 4px 10px rgba(212, 162, 76, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top nav-custom shadow-sm">
+      <div class="container-fluid">
+        <a class="navbar-brand text-light fw-bold nav-logo" href="traveling.html">Malabar<span>Voyages</span></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item"><a class="nav-link text-white" href="traveling.html">Home</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="traveling.html#about">About</a></li>
+            <li class="nav-item"><a class="nav-link active fw-bold text-warning" href="gellary.html">Gallery</a></li>
+            <li class="nav-item"><a class="nav-link text-white" href="traveling.html#packages">Packages</a></li>
+          </ul>
+          <a href="login.html" class="btn rounded-pill btn-book px-4">Book Now</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- BENTO GALLERY CAROUSEL SECTION -->
+    <section class="py-5 min-vh-100 d-flex align-items-center" style="padding-top: 100px !important;">
+      <div class="container">
+        
+        <div class="text-center mb-4">
+          <span class="text-success d-block small text-uppercase tracking-wide fw-bold">Visual Highlights</span>
+          <h1 class="display-5 fw-bold text-dark mt-1">Our Handcrafted Destinations</h1>
+        </div>
+
+        <!-- Carousel Outer Setup -->
+        <div id="bentoCarousel" class="carousel slide" data-bs-ride="carousel">
+          
+          <!-- NO JS HIGHLIGHTING TABS (മാറ്റങ്ങൾ വരുത്തിയത് ഇവിടെയാണ്) -->
+          <div class="carousel-indicators custom-bento-tabs mb-4">
+            <button type="button" data-bs-target="#bentoCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1">Kerala</button>
+            <button type="button" data-bs-target="#bentoCarousel" data-bs-slide-to="1" aria-label="Slide 2">India</button>
+            <button type="button" data-bs-target="#bentoCarousel" data-bs-slide-to="2" aria-label="Slide 3">World</button>
+          </div>
+
+          <!-- Carousel Items Base Structure -->
+          <div class="position-relative px-md-5">
+              <div class="carousel-inner pt-2">
+                
+                <!-- ===================== SLIDE 1: KERALA (5 PHOTOS) ===================== -->
+                <div class="carousel-item active">
+                  <div class="row g-3">
+                    <!-- Left Block -->
+                    <div class="col-md-4">
+                      <div class="d-flex flex-column gap-3">
+                        <div class="bento-card bento-short">
+                          <img src="https://images.unsplash.com/photo-1593693397690-362cb9666fc2?w=600&q=80" class="bento-img" alt="Munnar">
+                          <div class="bento-overlay"><h6>Munnar Highlands</h6></div>
+                        </div>
+                        <div class="bento-card bento-short">
+                          <img src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=600&q=80" class="bento-img" alt="Alleppey">
+                          <div class="bento-overlay"><h6>Alleppey Backwaters</h6></div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Middle Tall Block -->
+                    <div class="col-md-5">
+                      <div class="bento-card bento-tall">
+                        <img src="https://images.unsplash.com/photo-1602216056096-3b40cc0c9944?w=800&q=80" class="bento-img" alt="Wayanad">
+                        <div class="bento-overlay"><h5 class="text-warning fw-bold">Wayanad Rainforests</h5></div>
+                      </div>
+                    </div>
+                    <!-- Right Block -->
+                    <div class="col-md-3">
+                      <div class="d-flex flex-column gap-3">
+                        <div class="bento-card bento-short">
+                          <img src="https://images.unsplash.com/photo-1626593501069-42b7405e3ecb?w=600&q=80" class="bento-img" alt="Kovalam">
+                          <div class="bento-overlay"><h6>Kovalam Beach</h6></div>
+                        </div>
+                        <div class="bento-card bento-short">
+                          <img src="https://images.unsplash.com/photo-1596386461350-326ccb383e9f?w=600&q=80" class="bento-img" alt="Thekkady">
+                          <div class="bento-overlay"><h6>Thekkady Spice Gardens</h6></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ===================== SLIDE 2: INDIA (5 PHOTOS) ===================== -->
+                <div class="carousel-item">
+                  <div class="row g-3">
+                    <!-- Left Block -->
+                    <div class="col-md-4">
+                      <div class="d-flex flex-column gap-3">
+                        <div class="bento-card bento-short">
+                          <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=600&q=80" class="bento-img" alt="Taj Mahal">
+                          <div class="bento-overlay"><h6>Taj Mahal, Agra</h6></div>
+                        </div>
+                        <div class="bento-card bento-short">
+                          <img src="https://images.unsplash.com/photo-1477587458883-47145ed94245?w=600&q=80" class="bento-img" alt="Jaipur">
+                          <div class="bento-overlay"><h6>Hawa Mahal, Jaipur</h6></div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Middle Tall Block -->
+                    <div class="col-md-5">
+                      <div class="bento-card bento-tall">
+                        <img src="https://images.unsplash.com/photo-1561361513-2d000a50f0dc?w=800&q=80" class="bento-img" alt="Varanasi">
+                        <div class="bento-overlay"><h5 class="text-warning fw-bold">Spiritual Varanasi</h5></div>
+                      </div>
+                    </div>
+                    <!-- Right Block -->
+                    <div class="col-md-3">
+                      <div class="d-flex flex-column gap-3">
+                        <div class="bento-card bento-short">
+                          <img src="https://images.unsplash.com/photo-1542856391-010fb87dcfed?w=600&q=80" class="bento-img" alt="Goa">
+                          <div class="bento-overlay"><h6>Goa Shores</h6></div>
+                        </div>
+                        <div class="bento-card bento-short">
+                          <img src="https://images.unsplash.com/photo-1590001155093-a3c66ab0c3ff?w=600&q=80" class="bento-img" alt="Kashmir">
+                          <div class="bento-overlay"><h6>Kashmir Valleys</h6></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- ===================== SLIDE 3: WORLD (5 PHOTOS) ===================== -->
+                <div class="carousel-item">
+                  <div class="row g-3">
+                    <!-- Left Block -->
+                    <div class="col-md-4">
+                      <div class="d-flex flex-column gap-3">
+                        <div class="bento-card bento-short">
+                          <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=600&q=80" class="bento-img" alt="Bali">
+                          <div class="bento-overlay"><h6>Bali, Indonesia</h6></div>
+                        </div>
+                        <div class="bento-card bento-short">
+                          <img src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=600&q=80" class="bento-img" alt="Santorini">
+                          <div class="bento-overlay"><h6>Santorini, Greece</h6></div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Middle Tall Block -->
+                    <div class="col-md-5">
+                      <div class="bento-card bento-tall">
+                        <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80" class="bento-img" alt="Paris">
+                        <div class="bento-overlay"><h5 class="text-warning fw-bold">Eiffel Tower, Paris</h5></div>
+                      </div>
+                    </div>
+                    <!-- Right Block -->
+                    <div class="col-md-3">
+                      <div class="d-flex flex-column gap-3">
+                        <div class="bento-card bento-short">
+                          <img src="https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600&q=80" class="bento-img" alt="Maldives">
+                          <div class="bento-overlay"><h6>Maldives Resorts</h6></div>
+                        </div>
+                        <div class="bento-card bento-short">
+                          <img src="https://images.unsplash.com/photo-1518684079-3c830dcef090?w=600&q=80" class="bento-img" alt="Dubai">
+                          <div class="bento-overlay"><h6>Dubai Skylines</h6></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Carousel Left and Right Buttons -->
+              <button class="carousel-control-prev" type="button" data-bs-target="#bentoCarousel" data-bs-slide="prev" style="left: -50px; width: 50px;">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#bentoCarousel" data-bs-slide="next" style="right: -50px; width: 50px;">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+
+            </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

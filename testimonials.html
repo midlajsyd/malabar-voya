@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testimonials — Bento Grid (No JS) — MalabarVoyages</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<style>
+/*
+  ===========================================================
+  BENTO-GRID TESTIMONIALS — ZERO JS
+  ===========================================================
+  Inspired by the "Teamway" style layout you shared: bold
+  headline on the left, a grid of photo cards + solid-color
+  quote cards on the right. This is a STATIC CSS grid, not a
+  carousel — nothing scrolls or slides, so there's no JS
+  needed at all, not even the :has()/:target tricks.
+
+  PHOTO NOTE: I used https://i.pravatar.cc/ placeholder photos
+  since I don't have your real traveler photos. Swap each
+  <img src="https://i.pravatar.cc/..."> for your actual
+  customer photos (with their permission) — just keep the
+  same <img> tag and class, sizing will stay correct.
+
+  HOW TO USE:
+  Paste the <section class="testi-bento" ...> block into
+  traveling.html where your old testimonials section was.
+  No <script> tag needed.
+  ===========================================================
+*/
+body{ font-family:'inter',sans-serif; background:#fdf8f0; }
+
+.god{ display:block; font-size:12px; letter-spacing:3px; padding-top:7px; color:#e4ab47; padding-bottom:5px; }
+.discover{ position:relative; display:inline-block; margin-bottom:20px; color:inherit; }
+.discover::after{ content:""; display:block; width:120px; height:1px; background-color:#d4a24c; border-radius:100px; position:absolute; left:0; bottom:-5px; }
+
+.testi-bento{
+  padding:90px 0;
+  background:#fdf8f0;
+}
+
+.testi-bento-left{
+  padding-right:20px;
+}
+.testi-bento-eyebrow{ color:#d4a24c; }
+.testi-bento-title{
+  font-size:2.6rem;
+  font-weight:700;
+  color:#0e2b12;
+  line-height:1.15;
+  margin-bottom:20px;
+}
+.testi-bento-sub{
+  color:#5c5c5c;
+  font-size:1rem;
+  line-height:1.7;
+  margin-bottom:28px;
+  max-width:420px;
+}
+.testi-bento-cta{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  background:#0e2b12;
+  color:#fff;
+  border-radius:50px;
+  padding:14px 24px;
+  font-weight:600;
+  text-decoration:none;
+  font-size:.95rem;
+}
+.testi-bento-cta i{
+  background:#d4a24c;
+  color:#0e2b12;
+  border-radius:50%;
+  width:26px; height:26px;
+  display:flex; align-items:center; justify-content:center;
+}
+.testi-bento-facepile{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-top:30px;
+}
+.testi-bento-facepile .stack{ display:flex; }
+.testi-bento-facepile .stack img{
+  width:34px; height:34px;
+  border-radius:50%;
+  border:2px solid #fdf8f0;
+  object-fit:cover;
+  margin-left:-10px;
+}
+.testi-bento-facepile .stack img:first-child{ margin-left:0; }
+.testi-bento-facepile span{ font-size:.82rem; color:#5c5c5c; }
+
+/*  bento cards */
+
+.big-card{ height:430px; }
+.small-card{ height:200px; }
+
+.testi-bento-cell{
+  border-radius:16px;
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  width:100%;
+  height:100%;
+}
+
+/* photo cells */
+.testi-bento-cell.photo img{
+  width:100%; height:100%;
+  object-fit:cover;
+  position:absolute;
+  inset:0;
+}
+.testi-bento-cell.photo .overlay{
+  position:relative;
+  z-index:2;
+  background:linear-gradient(to top, rgba(10,25,12,.85) 0%, rgba(10,25,12,0) 70%);
+  padding:14px;
+  width:100%;
+}
+.testi-bento-cell.photo .name{ color:#fff; font-weight:700; font-size:.85rem; margin-bottom:1px; }
+.testi-bento-cell.photo .role{ color:#d7e6d4; font-size:.72rem; display:flex; align-items:center; gap:5px; }
+.testi-bento-cell.photo .role .bi-patch-check-fill{ color:#d4a24c; }
+
+/* solid quote cells */
+.testi-bento-cell.quote{
+  padding:16px;
+  justify-content:center;
+}
+.testi-bento-cell.quote.mint{ background:#e5f2e6; }
+.testi-bento-cell.quote.plum{ background:#3c2748; color:#fff; }
+.testi-bento-cell.quote.gold{ background:linear-gradient(150deg,#e8b154,#d4a24c); color:#2c1c05; }
+.testi-bento-cell.quote.peach{ background:#fbe8d6; color:#5c3a1e; }
+.testi-bento-cell.quote p{
+  font-size:.85rem;
+  line-height:1.5;
+  margin:0;
+  font-weight:600;
+}
+.testi-bento-cell.quote .cat{
+  font-size:.68rem;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+  opacity:.7;
+  margin-top:6px;
+  display:block;
+}
+
+/* below the md breakpoint, Bootstrap's own col-md-* stacking already
+   turns every column to full width — so cards naturally go from a
+   3-across bento to a single vertical stack with no extra CSS needed.
+   We just shrink the fixed heights a bit on small screens for balance. */
+@media (max-width:767.98px){
+  .big-card{ height:280px; }
+  .small-card{ height:200px; }
+}
+
+/* bottom trust strip, reused from your original */
+.testi-trustline{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:34px;
+  margin-top:60px; padding-top:34px;
+  border-top:1px solid rgba(14,43,18,.12);
+}
+.testi-trustline div{ text-align:center; }
+.testi-trustline strong{ display:block; font-size:1.6rem; color:#0e2b12; line-height:1; margin-bottom:4px; }
+.testi-trustline span{ font-size:.78rem; color:#7a7a7a; letter-spacing:.4px; }
+</style>
+</head>
+<body>
+
+<!-- TESTIMONIALS BENTO SECTION START -->
+<section class="testi-bento" id="testimonials">
+  <div class="container">
+    <div class="row align-items-center g-5">
+
+      <!-- left copy -->
+      <div class="col-lg-4">
+        <div class="testi-bento-left">
+          <span class="god testi-bento-eyebrow">TRAVELER STORIES</span>
+          <h2 class="testi-bento-title discover">Real trips.<br>Real feedback.</h2>
+          <p class="testi-bento-sub">Over 10,000 travelers have trusted us with their Kerala journeys, honeymoons, and family getaways. Here's what a few of them had to say.</p>
+          <a href="#packages" class="testi-bento-cta">Plan your trip <i class="bi bi-arrow-right"></i></a>
+
+          <div class="testi-bento-facepile">
+            <div class="stack">
+              <img src="random1.png" alt="">
+              <img src="random2.png" alt="">
+              <img src="random3.png" alt="">
+            </div>
+            <span>Joined by 700+ this month</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- right bento grid — built entirely with Bootstrap's row/col system -->
+      <div class="col-lg-8">
+
+        <!-- row 1: big photo | stacked quotes | tall photo -->
+        <div class="row g-3">
+
+          <div class="col-md-6">
+            <div class="testi-bento-cell photo big-card">
+              <img src="testimany1.png" alt="Priya Nair">
+              <div class="overlay">
+                <div class="name">Priya Nair</div>
+                <div class="role"><i class="bi bi-patch-check-fill"></i> Kerala Grand Tour</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3 d-flex flex-column gap-3">
+            <div class="testi-bento-cell quote mint flex-fill">
+              <p>"Booked within 72 hours, exactly the way we asked."</p>
+              <span class="cat">Quick &amp; adaptable</span>
+            </div>
+            <div class="testi-bento-cell quote plum flex-fill">
+              <p>"Every transfer, every timing — handled without a single call from us."</p>
+              <span class="cat">Stress-free planning</span>
+            </div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="testi-bento-cell photo big-card">
+              <img src="fathimabeevi.png" alt="Fathima Beevi">
+              <div class="overlay">
+                <div class="name">Fathima Beevi</div>
+                <div class="role"><i class="bi bi-patch-check-fill"></i> Backwaters Trip</div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- row 2: small photo | gold quote | peach quote (new feedback) -->
+        <div class="row g-3 mt-1">
+
+          <div class="col-md-4">
+            <div class="testi-bento-cell photo small-card">
+              <img src="couple.png" alt="Arjun Menon">
+              <div class="overlay">
+                <div class="name">Arjun Menon</div>
+                <div class="role"><i class="bi bi-patch-check-fill"></i> Honeymoon Special</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="testi-bento-cell quote gold small-card">
+              <p>"10,000+ happy travelers and counting — join us next."</p>
+              <span class="cat">Join the journey</span>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="testi-bento-cell quote peach small-card">
+              <p>"Sunrise at the Taj with almost no crowd — they got our timing exactly right."</p>
+              <span class="cat">Perfectly timed</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="testi-trustline">
+      <div><strong>10k+</strong><span>Happy Travelers</span></div>
+      <div><strong>4.8/5</strong><span>Average Rating</span></div>
+      <div><strong>55+</strong><span>Destinations Covered</span></div>
+      <div><strong>8+</strong><span>Years of Trust</span></div>
+    </div>
+
+  </div>
+</section>
+
+
+</body>
+</html>

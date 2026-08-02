@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>India Destinations | Malabar Voyages</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <style>
+   body {
+  font-family: Inter, Arial, sans-serif;
+  background-color: #f4efe3;
+  color: #111;
+}
+
+    .nav {
+      background-color: #0b5313;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+    }
+
+    .nav-logo span {
+      color: #d4a24c;
+    }
+
+    .nav-link {
+      color: #fff !important;
+    }
+
+    .nav-link:hover {
+      color: #d4a24c !important;
+    }
+
+    .offcanvas {
+      background-color: #0b5313;
+    }
+
+    .dropdown-menu {
+      background-color: #0b5313;
+      border: 1px solid #d4a24c;
+      border-radius: 10px;
+    }
+
+    .dropdown-item {
+      color: #fff;
+    }
+
+    .dropdown-item:hover {
+      background-color: #d4a24c;
+      color: #0b5313;
+    }
+
+    .btn-book {
+      background-color: #d4a24c;
+      color: white;
+      border: none;
+    }
+
+    .btn-book:hover {
+      background-color: #bd8d37;
+      color: white;
+    }
+
+   .india-page {
+  padding: 130px 0 80px;
+  background-color: #f4efe3;
+}
+.breadcrumb-link{
+    color:#d4a24c;
+    text-decoration:none;
+    font-size:.85rem;
+    letter-spacing:.5px;
+    display:inline-block;
+    margin-bottom:10px;
+}
+
+
+    .god {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 3px;
+      color: #b17f2e;
+      padding-bottom: 5px;
+    }
+
+    .discover {
+      position: relative;
+      display: inline-block;
+      margin-bottom: 20px;
+      font-weight: 800;
+      color: #0b5313;
+    }
+
+    .discover::after {
+      content: "";
+      display: block;
+      width: 120px;
+      height: 1px;
+      background-color: #d4a24c;
+      position: absolute;
+      left: 50%;
+      bottom: -5px;
+      transform: translateX(-50%);
+    }
+
+    .hill {
+      color: #3f3a30;
+    }
+
+    .travel-card {
+      height: 350px;
+      overflow: hidden;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,.2);
+    }
+
+    .travel-card img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+      transition: transform .5s ease;
+    }
+
+    .travel-card:hover img {
+      transform: scale(1.08);
+    }
+
+    .card-img-overlay {
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,.8),
+        rgba(0,0,0,.2),
+        transparent
+      );
+    }
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .rating span {
+      color: #d4a24c;
+      font-size: 15px;
+      letter-spacing: 1px;
+    }
+
+    .rating small {
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .footer {
+      position: relative;
+      background-image:
+        linear-gradient(180deg, rgba(10, 15, 12, 0.45), rgba(10, 15, 12, 0.82)),
+        url("kerala.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #f3f3f3;
+      padding-top: 70px;
+    }
+
+    .footer h5 {
+      color: #fff;
+      font-weight: 800;
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .footer h5::after {
+      content: "";
+      display: block;
+      width: 40px;
+      height: 2px;
+      background-color: #d4a24c;
+      margin-top: 8px;
+      border-radius: 999px;
+    }
+
+    .footer p,
+    .footer a {
+      color: #cfcfcf;
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .footer ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .footer li {
+      margin-bottom: 10px;
+    }
+
+    .footer a:hover {
+      color: #d4a24c;
+    }
+
+    .footer-logo span {
+      color: #d4a24c;
+    }
+
+    .footer-social a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid #d4a24c;
+      border-radius: 50%;
+      color: #d4a24c;
+      margin-right: 10px;
+      transition: 0.3s;
+    }
+
+    .footer-social a:hover {
+      background-color: #d4a24c;
+      color: #fff;
+    }
+
+    .footer-newsletter input {
+      border-radius: 999px 0 0 999px;
+      border: 0;
+      padding: 10px 15px;
+    }
+
+    .footer-newsletter button {
+      border-radius: 0 999px 999px 0;
+    }
+
+    .footer-bottom {
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      margin-top: 40px;
+      padding: 20px 0;
+      font-size: 0.85rem;
+      text-align: center;
+      color: #a8a8a8;
+    }
+
+    @media (max-width: 576px) {
+      .travel-card {
+        height: 230px;
+      }
+
+      .discover {
+        font-size: 1.8rem;
+      }
+
+      .footer-newsletter {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .footer-newsletter input,
+      .footer-newsletter button {
+        border-radius: 999px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg nav">
+    <div class="container-fluid">
+      <a class="navbar-brand text-light nav-logo" href="index.html">
+        Malabar<span>Voyages</span>
+      </a>
+
+      <button
+        class="navbar-toggler bg-light"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasNavbar"
+        aria-controls="offcanvasNavbar"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title text-light">
+            Malabar<span style="color:#d4a24c;">Voyages</span>
+          </h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+        </div>
+
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+            <a class="nav-link text-white active" aria-current="page" href="traveling.html">Home</a>
+          </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="traveling.html">About</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+                Destinations
+              </a>
+
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="kerala.html">Kerala</a></li>
+                <li><a class="dropdown-item" href="india.html">India</a></li>
+                <li><a class="dropdown-item" href="world.html">World</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="index.html#gallery">Gallery</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+          </ul>
+
+          <a class="btn rounded-pill btn-book" href="#contact">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <section class="india-page">
+    <div class="container">
+       <a href="traveling.html" class="breadcrumb-link"><i class="bi bi-arrow-left"></i> Back to Home</a>
+      <div class="text-center mb-5">
+        <span class="god">INCREDIBLE INDIA</span>
+        <h2 class="discover">Explore Our Nation</h2>
+        <p class="hill">
+          From the Himalayas to the southern seas, India's diverse landscapes await you.
+        </p>
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col">
+          <div class="card travel-card text-bg-dark">
+            <img src="tajmahal.jpeg" class="card-img" alt="Taj Mahal">
+            <div class="card-img-overlay d-flex flex-column justify-content-end p-3">
+              <h5 class="card-title">Taj Mahal</h5>
+              <div class="rating">
+                <span>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <small>4.9</small>
+              </div>
+              <p class="card-text">India's iconic monument of love in Agra.</p>
+              <a href="#contact" class="btn btn-sm btn-book rounded-pill align-self-start">Explore</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card travel-card text-bg-dark">
+            <img src="jaipur.jpeg" class="card-img" alt="Jaipur">
+            <div class="card-img-overlay d-flex flex-column justify-content-end p-3">
+              <h5 class="card-title">Jaipur</h5>
+              <div class="rating">
+                <span>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <small>4.8</small>
+              </div>
+              <p class="card-text">Royal palaces, forts, and vibrant culture.</p>
+              <a href="#contact" class="btn btn-sm btn-book rounded-pill align-self-start">Explore</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card travel-card text-bg-dark">
+            <img src="kashmir.jpeg" class="card-img" alt="Kashmir">
+            <div class="card-img-overlay d-flex flex-column justify-content-end p-3">
+              <h5 class="card-title">Kashmir</h5>
+              <div class="rating">
+                <span>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <small>4.9</small>
+              </div>
+              <p class="card-text">Snow-capped mountains and scenic valleys.</p>
+              <a href="#contact" class="btn btn-sm btn-book rounded-pill align-self-start">Explore</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card travel-card text-bg-dark">
+            <img src="goa.jpeg" class="card-img" alt="Goa">
+            <div class="card-img-overlay d-flex flex-column justify-content-end p-3">
+              <h5 class="card-title">Goa</h5>
+              <div class="rating">
+                <span>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <small>4.8</small>
+              </div>
+              <p class="card-text">Beaches, nightlife, and Portuguese heritage.</p>
+              <a href="#contact" class="btn btn-sm btn-book rounded-pill align-self-start">Explore</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card travel-card text-bg-dark">
+            <img src="Ladakh.jpeg" class="card-img" alt="Ladakh">
+            <div class="card-img-overlay d-flex flex-column justify-content-end p-3">
+              <h5 class="card-title">Ladakh</h5>
+              <div class="rating">
+                <span>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <small>4.9</small>
+              </div>
+              <p class="card-text">High mountains, monasteries, and adventure.</p>
+              <a href="#contact" class="btn btn-sm btn-book rounded-pill align-self-start">Explore</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col">
+          <div class="card travel-card text-bg-dark">
+            <img src="varanasi.jpeg" class="card-img" alt="Varanasi">
+            <div class="card-img-overlay d-flex flex-column justify-content-end p-3">
+              <h5 class="card-title">Varanasi</h5>
+              <div class="rating">
+                <span>&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+                <small>4.8</small>
+              </div>
+              <p class="card-text">Spiritual ghats, temples, and cultural heritage.</p>
+              <a href="#contact" class="btn btn-sm btn-book rounded-pill align-self-start">Explore</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer" id="contact">
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-4 col-md-6">
+          <h5 class="footer-logo fs-4 mb-3">
+            Malabar<span>Voyages</span>
+          </h5>
+
+          <p>
+            Handcrafted journeys from Kerala's backwaters to breathtaking
+            destinations across India and the globe.
+          </p>
+
+          <div class="footer-social mt-3">
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="Twitter X"><i class="bi bi-twitter-x"></i></a>
+            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-6">
+          <h5>Explore</h5>
+
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="kerala.html">Kerala</a></li>
+            <li><a href="india.html">India</a></li>
+            <li><a href="world.html">World</a></li>
+            <li><a href="index.html#gallery">Gallery</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Top India Places</h5>
+
+          <ul>
+            <li><a href="#">Taj Mahal</a></li>
+            <li><a href="#">Jaipur</a></li>
+            <li><a href="#">Kashmir</a></li>
+            <li><a href="#">Goa</a></li>
+            <li><a href="#">Ladakh</a></li>
+            <li><a href="#">Varanasi</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Stay Updated</h5>
+
+          <p>
+            Get India tour deals and travel updates straight to your inbox.
+          </p>
+
+          <form class="d-flex footer-newsletter mt-3">
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Your email"
+              aria-label="Your email"
+            >
+
+            <button class="btn btn-book" type="submit">
+              Join
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2026 MalabarVoyages. All rights reserved.
+        | Designed with <span style="color:#d4a24c;">&hearts;</span> in Kerala
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

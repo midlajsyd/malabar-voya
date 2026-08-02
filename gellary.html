@@ -1,0 +1,1204 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gallery - Malabar Voyages</title>
+
+  <!-- Google Fonts & Bootstrap -->
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #101827;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    /* ================= NAVBAR STYLES (PARENT FILE MATCH) ================= */
+    .nav {
+    background-color: transparent;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    animation: navcolor linear;
+    animation-timeline: scroll(root);
+    animation-range: 0px 100%;
+}
+
+@keyframes navcolor {
+    from { background-color: transparent; }
+    to { background-color: rgb(11, 83, 11); }
+}
+
+    .nav-logo span {
+      color: #d4a24c;
+    }
+
+
+    .btn-book {
+      background-color: #d4a24c;
+      color: white !important;
+      font-weight: 500;
+    }
+
+    .btn-book:hover {
+      background-color: #b88a3b;
+    }
+
+    .nav-link {
+      color: #fff !important;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: #d4a24c !important;
+    }
+
+    .offcanvas {
+      background-color: #0b5313 !important;
+    }
+    .back-home-btn {
+    position: fixed;
+    bottom: 28px;
+    left: 28px;
+    width: 52px;
+    height: 52px;
+    background: #d4a24c;
+    color: #0b5313 !important;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    z-index: 950;
+    box-shadow: 0 8px 20px rgba(0,0,0,.35);
+    transition: .3s;
+}
+
+.back-home-btn:hover {
+    background: #0b5313;
+    color: #d4a24c !important;
+    transform: scale(1.08);
+}
+
+@media (max-width: 767px) {
+    .back-home-btn { width: 44px; height: 44px; font-size: 18px; left: 18px; bottom: 18px; }
+}
+
+    /* ================= SECTION HEADING ================= */
+    .god {
+      display: block;
+      font-size: 12px;
+      letter-spacing: 3px;
+      color: #d4a24c;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .discover {
+      position: relative;
+      display: inline-block;
+      font: 700 clamp(28px, 4vw, 46px)/1.1 "Barlow Condensed", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+
+    .discover::after {
+      content: "";
+      display: block;
+      width: 90px;
+      height: 2px;
+      background-color: #d4a24c;
+      border-radius: 100px;
+      position: absolute;
+      left: 50%;
+      bottom: -10px;
+      transform: translateX(-50%);
+    }
+
+    .hill {
+      color: #b9c2bd;
+      font-size: 14px;
+      letter-spacing: .3px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    .gallery-heading {
+      position: relative;
+      z-index: 3;
+      text-align: center;
+      padding-top: 30px;
+    }
+
+    /* Jump dots between the three region galleries */
+    .gallery-jump {
+      position: fixed;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 900;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .gallery-jump a {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 1px solid #d4a24c;
+      background: transparent;
+      transition: .3s;
+      display: block;
+    }
+
+    .gallery-jump a:hover {
+      background: #d4a24c;
+      box-shadow: 0 0 0 3px rgba(212,162,76,.25);
+    }
+
+    @media (max-width: 767px) {
+      .gallery-jump { display: none; }
+    }
+
+    /* ================= SLIDER & GALLERY STYLES ================= */
+    .slider {
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+      padding-top: 75px; /* Navbar Overlay Avoid ചെയ്യാൻ */
+      display: flex;
+      flex-direction: column;
+    }
+
+    input[type="radio"] {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .bg {
+      position: absolute;
+      inset: 0;
+      z-index: -2;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity .6s ease;
+    }
+
+    .bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(0,0,0,.88), rgba(0,0,0,.35));
+    }
+
+    /* per-region background/reveal rules are generated below, see
+       "REGION-SPECIFIC SLIDE RULES" block */
+
+    .content {
+      flex: 1;
+      min-height: 0;
+      padding: 3vh 8%;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .feature, .controls {
+      display: none;
+    }
+
+    /* per-region caption/control display rules generated below */
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .location {
+      font-size: 13px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #d4a24c;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .location::before {
+      content: "";
+      width: 25px;
+      height: 2px;
+      background: #d4a24c;
+      display: inline-block;
+      margin-right: 12px;
+      vertical-align: middle;
+    }
+
+    h1 {
+      margin: 0 0 20px;
+      font: 700 clamp(48px, 6vw, 100px)/.9 "Barlow Condensed", sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .description {
+      max-width: 420px;
+      font-size: 14px;
+      line-height: 1.7;
+      color: #e2ece7;
+      margin-bottom: 25px;
+    }
+
+    .discover-btn {
+      border: 1px solid #d4a24c;
+      border-radius: 25px;
+      padding: 10px 24px;
+      background: #d4a24c;
+      color: #0b5313;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .discover-btn:hover {
+      background: transparent;
+      color: #d4a24c;
+    }
+
+    /* ================= CARDS SECTION ================= */
+    .cards {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      padding: 15px 5px 25px;
+      scrollbar-width: none;
+    }
+
+    .cards::-webkit-scrollbar { display: none; }
+
+    .card-item {
+      flex: 0 0 160px;
+      height: 280px;
+      border-radius: 14px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      opacity: .65;
+      transform: scale(.94);
+      transition: all .35s ease;
+      box-shadow: 0 12px 25px rgba(0,0,0,.4);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .card-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .card-item::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 30%, rgba(0,0,0,.85));
+    }
+
+    .card-content {
+      position: absolute;
+      z-index: 2;
+      left: 12px;
+      right: 10px;
+      bottom: 16px;
+    }
+
+    .card-content small {
+      display: block;
+      font-size: 10px;
+      color: #d4a24c;
+      margin-bottom: 4px;
+      text-transform: uppercase;
+    }
+
+    .card-content strong {
+      display: block;
+      font: 600 20px/1 "Barlow Condensed", sans-serif;
+      text-transform: uppercase;
+      color: white;
+    }
+
+    /* per-region active-card highlight rules generated below */
+
+    /* ================= CONTROLS ================= */
+    .controls {
+      align-items: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    /* per-region control display rules generated below */
+
+    .arrow {
+      width: 48px;
+      height: 48px;
+      border: 1px solid rgba(255,255,255,.4);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      font-size: 22px;
+      transition: .3s;
+      user-select: none;
+    }
+
+    .arrow:hover {
+      background: #d4a24c;
+      border-color: #d4a24c;
+      color: #0b5313;
+    }
+
+    .progress {
+      flex: 1;
+      height: 3px;
+      background: rgba(255,255,255,.2);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress span {
+      display: block;
+      height: 100%;
+      background: #d4a24c;
+      transition: width 0.4s ease;
+    }
+
+    /* per-region progress-bar width rules generated below */
+
+    .number {
+      font: 700 28px "Barlow Condensed", sans-serif;
+      color: #d4a24c;
+    }
+
+    /* Responsive Queries */
+    @media (max-width: 991px) {
+      .gallery-heading { padding-top: 20px; }
+      .discover { font-size: 30px; }
+      .content {
+        grid-template-columns: 1fr;
+        padding: 20px 20px 40px;
+        gap: 25px;
+      }
+      h1 { font-size: 55px; }
+      .cards { padding-bottom: 15px; }
+    }
+
+    @media (max-width: 576px) {
+      .card-item { flex: 0 0 130px; height: 220px; }
+      .arrow { width: 40px; height: 40px; font-size: 18px; }
+    }
+
+    /* ================= REGION-SPECIFIC SLIDE RULES ================= */
+    /* ---- kerala background images ---- */
+    .bgk1 { background-image: url(munnargallery.jpeg); }
+    .bgk2 { background-image: url(alappuzagallery.jpeg); }
+    .bgk3 { background-image: url(wayanadgallery.jpeg); }
+    .bgk4 { background-image: url(fort\ kochigallery.jpeg); }
+    .bgk5 { background-image: url(kovalamgallery.jpeg); }
+    .bgk6 { background-image: url(thekkadygallery.jpeg); }
+
+    #k1:checked ~ .bgk1,
+    #k2:checked ~ .bgk2,
+    #k3:checked ~ .bgk3,
+    #k4:checked ~ .bgk4,
+    #k5:checked ~ .bgk5,
+    #k6:checked ~ .bgk6 {
+      opacity: 1;
+    }
+
+    #k1:checked ~ .content .featurek1,
+    #k2:checked ~ .content .featurek2,
+    #k3:checked ~ .content .featurek3,
+    #k4:checked ~ .content .featurek4,
+    #k5:checked ~ .content .featurek5,
+    #k6:checked ~ .content .featurek6,
+    #k1:checked ~ .content .controlk1,
+    #k2:checked ~ .content .controlk2,
+    #k3:checked ~ .content .controlk3,
+    #k4:checked ~ .content .controlk4,
+    #k5:checked ~ .content .controlk5,
+    #k6:checked ~ .content .controlk6 {
+      display: block;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    #k1:checked ~ .content .cardk1,
+    #k2:checked ~ .content .cardk2,
+    #k3:checked ~ .content .cardk3,
+    #k4:checked ~ .content .cardk4,
+    #k5:checked ~ .content .cardk5,
+    #k6:checked ~ .content .cardk6 {
+      transform: scale(1.05);
+      opacity: 1;
+      border-color: #d4a24c;
+      box-shadow: 0 15px 30px rgba(212, 162, 76, 0.25);
+    }
+
+    #k1:checked ~ .content .controlk1,
+    #k2:checked ~ .content .controlk2,
+    #k3:checked ~ .content .controlk3,
+    #k4:checked ~ .content .controlk4,
+    #k5:checked ~ .content .controlk5,
+    #k6:checked ~ .content .controlk6 {
+      display: flex;
+    }
+
+    .controlk1 .progress span { width: 16.67%; }
+    .controlk2 .progress span { width: 33.33%; }
+    .controlk3 .progress span { width: 50.0%; }
+    .controlk4 .progress span { width: 66.67%; }
+    .controlk5 .progress span { width: 83.33%; }
+    .controlk6 .progress span { width: 100.0%; }
+
+    /* ---- india background images ---- */
+    .bgi1 { background-image: url(tajmalhalgallery.jpeg); }
+    .bgi2 { background-image: url(jaipurgallery.jpeg); }
+    .bgi3 { background-image: url(kashmirgallery.jpeg); }
+    .bgi4 { background-image: url(goagallery.jpeg); }
+    .bgi5 { background-image: url(ladakhgallery.jpeg); }
+    .bgi6 { background-image: url(varanasigallery.jpeg); }
+
+    #i1:checked ~ .bgi1,
+    #i2:checked ~ .bgi2,
+    #i3:checked ~ .bgi3,
+    #i4:checked ~ .bgi4,
+    #i5:checked ~ .bgi5,
+    #i6:checked ~ .bgi6 {
+      opacity: 1;
+    }
+
+    #i1:checked ~ .content .featurei1,
+    #i2:checked ~ .content .featurei2,
+    #i3:checked ~ .content .featurei3,
+    #i4:checked ~ .content .featurei4,
+    #i5:checked ~ .content .featurei5,
+    #i6:checked ~ .content .featurei6,
+    #i1:checked ~ .content .controli1,
+    #i2:checked ~ .content .controli2,
+    #i3:checked ~ .content .controli3,
+    #i4:checked ~ .content .controli4,
+    #i5:checked ~ .content .controli5,
+    #i6:checked ~ .content .controli6 {
+      display: block;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    #i1:checked ~ .content .cardi1,
+    #i2:checked ~ .content .cardi2,
+    #i3:checked ~ .content .cardi3,
+    #i4:checked ~ .content .cardi4,
+    #i5:checked ~ .content .cardi5,
+    #i6:checked ~ .content .cardi6 {
+      transform: scale(1.05);
+      opacity: 1;
+      border-color: #d4a24c;
+      box-shadow: 0 15px 30px rgba(212, 162, 76, 0.25);
+    }
+
+    #i1:checked ~ .content .controli1,
+    #i2:checked ~ .content .controli2,
+    #i3:checked ~ .content .controli3,
+    #i4:checked ~ .content .controli4,
+    #i5:checked ~ .content .controli5,
+    #i6:checked ~ .content .controli6 {
+      display: flex;
+    }
+
+    .controli1 .progress span { width: 16.67%; }
+    .controli2 .progress span { width: 33.33%; }
+    .controli3 .progress span { width: 50.0%; }
+    .controli4 .progress span { width: 66.67%; }
+    .controli5 .progress span { width: 83.33%; }
+    .controli6 .progress span { width: 100.0%; }
+
+    /* ---- world background images ---- */
+    .bgw1 { background-image: url(baligallery.jpeg); }
+    .bgw2 { background-image: url(greesgallery.jpeg); }
+    .bgw3 { background-image: url(dubaigallery.jpeg); }
+    .bgw4 { background-image: url(switzerlandgallery.jpeg); }
+    .bgw5 { background-image: url(parisgallery.jpeg); }
+    .bgw6 { background-image: url(malidivesgallery.jpeg); }
+
+    #w1:checked ~ .bgw1,
+    #w2:checked ~ .bgw2,
+    #w3:checked ~ .bgw3,
+    #w4:checked ~ .bgw4,
+    #w5:checked ~ .bgw5,
+    #w6:checked ~ .bgw6 {
+      opacity: 1;
+    }
+
+    #w1:checked ~ .content .featurew1,
+    #w2:checked ~ .content .featurew2,
+    #w3:checked ~ .content .featurew3,
+    #w4:checked ~ .content .featurew4,
+    #w5:checked ~ .content .featurew5,
+    #w6:checked ~ .content .featurew6,
+    #w1:checked ~ .content .controlw1,
+    #w2:checked ~ .content .controlw2,
+    #w3:checked ~ .content .controlw3,
+    #w4:checked ~ .content .controlw4,
+    #w5:checked ~ .content .controlw5,
+    #w6:checked ~ .content .controlw6 {
+      display: block;
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    #w1:checked ~ .content .cardw1,
+    #w2:checked ~ .content .cardw2,
+    #w3:checked ~ .content .cardw3,
+    #w4:checked ~ .content .cardw4,
+    #w5:checked ~ .content .cardw5,
+    #w6:checked ~ .content .cardw6 {
+      transform: scale(1.05);
+      opacity: 1;
+      border-color: #d4a24c;
+      box-shadow: 0 15px 30px rgba(212, 162, 76, 0.25);
+    }
+
+    #w1:checked ~ .content .controlw1,
+    #w2:checked ~ .content .controlw2,
+    #w3:checked ~ .content .controlw3,
+    #w4:checked ~ .content .controlw4,
+    #w5:checked ~ .content .controlw5,
+    #w6:checked ~ .content .controlw6 {
+      display: flex;
+    }
+
+    .controlw1 .progress span { width: 16.67%; }
+    .controlw2 .progress span { width: 33.33%; }
+    .controlw3 .progress span { width: 50.0%; }
+    .controlw4 .progress span { width: 66.67%; }
+    .controlw5 .progress span { width: 83.33%; }
+    .controlw6 .progress span { width: 100.0%; }
+    .footer {
+    position: relative;
+    background-image:
+        linear-gradient(180deg, rgba(10, 15, 12, 0.35) 0%, rgba(10, 15, 12, 0.75) 100%),
+        url(kerala.png);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #f3f3f3;
+    padding-top: 70px;
+}
+
+.footer h5 {
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.footer h5::after {
+    content: "";
+    display: block;
+    width: 35px;
+    height: 2px;
+    background-color: #d4a24c;
+    margin-top: 8px;
+}
+
+.footer a {
+    color: #cfcfcf;
+    text-decoration: none;
+    transition: 0.2s;
+}
+
+.footer a:hover {
+    color: #d4a24c;
+}
+
+.footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    margin-top: 40px;
+    padding: 20px 0;
+    font-size: 0.85rem;
+    text-align: center;
+    color: #a8a8a8;
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ================= PARENT FILE NAVBAR ================= -->
+  <nav class="navbar navbar-expand-lg nav">
+    <div class="container-fluid px-4">
+      <a class="navbar-brand text-light nav-logo fw-bold" href="#">Malabar<span>Voyages</span></a>
+      <button class="navbar-toggler text-white border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+      </button>
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title text-white" id="offcanvasNavbarLabel">Malabar Voyages</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+            <li class="nav-item">
+              <a class="nav-link" href="main.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="destination.html">Destination</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="gellary.html">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="packages.html">Packages</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+          </ul>
+          <a href="login.html" class="btn rounded-pill btn-book px-4">Book Now</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  <a href="main.html" class="back-home-btn" title="Back to Home">
+  <i class="bi bi-house-door-fill"></i>
+</a>
+
+  <!-- Jump dots to switch between the three galleries -->
+  <nav class="gallery-jump" aria-label="Gallery sections">
+    <a href="#kerala" title="Kerala"></a>
+    <a href="#india" title="India"></a>
+    <a href="#world" title="World"></a>
+  </nav>
+
+  <!-- ================= KERALA SECTION ================= -->
+  <section class="slider" id="kerala">
+
+    <!-- Section Heading -->
+    <div class="container gallery-heading">
+      <span class="god">GOD'S OWN COUNTRY</span>
+      <h2 class="discover">Kerala Gallery</h2>
+      <p class="hill">Backwaters, tea gardens and misty hills across God's Own Country</p>
+    </div>
+
+    <!-- Hidden Radio Controls -->
+    <input type="radio" name="slider-k" id="k1" checked>
+    <input type="radio" name="slider-k" id="k2">
+    <input type="radio" name="slider-k" id="k3">
+    <input type="radio" name="slider-k" id="k4">
+    <input type="radio" name="slider-k" id="k5">
+    <input type="radio" name="slider-k" id="k6">
+
+    <!-- Background Images -->
+    <div class="bg bgk1"></div>
+    <div class="bg bgk2"></div>
+    <div class="bg bgk3"></div>
+    <div class="bg bgk4"></div>
+    <div class="bg bgk5"></div>
+    <div class="bg bgk6"></div>
+
+    <section class="content">
+
+      <!-- LEFT: Dynamic Headings & Captions -->
+      <div>
+        <div class="feature featurek1">
+          <p class="location">Kerala · Western Ghats</p>
+          <h1>Munnar<br>Tea Hills</h1>
+          <p class="description">Tea gardens, cool weather, and misty mountain views.</p>
+          <a href="packages.html" class="discover-btn">Explore Munnar</a>
+        </div>
+
+        <div class="feature featurek2">
+          <p class="location">Kerala · Backwaters</p>
+          <h1>Alleppey<br>Backwaters</h1>
+          <p class="description">Peaceful backwaters, houseboats, and village life.</p>
+          <a href="packages.html" class="discover-btn">Explore Alleppey</a>
+        </div>
+
+        <div class="feature featurek3">
+          <p class="location">Kerala · Western Ghats</p>
+          <h1>Wayanad<br>Rainforest</h1>
+          <p class="description">Lush green spice plantations, mist-covered hills, wildlife, and natural trekking trails.</p>
+          <a href="packages.html" class="discover-btn">Explore Wayanad</a>
+        </div>
+
+        <div class="feature featurek4">
+          <p class="location">Kerala · Coastal Kochi</p>
+          <h1>Fort Kochi<br>Heritage</h1>
+          <p class="description">Colonial charm, Chinese fishing nets, and vibrant art cafes.</p>
+          <a href="packages.html" class="discover-btn">Explore Fort Kochi</a>
+        </div>
+
+        <div class="feature featurek5">
+          <p class="location">Kerala · Coastline</p>
+          <h1>Kovalam<br>Beaches</h1>
+          <p class="description">Crescent-shaped beaches and lighthouse views at sunset.</p>
+          <a href="packages.html" class="discover-btn">Explore Kovalam</a>
+        </div>
+
+        <div class="feature featurek6">
+          <p class="location">Kerala · Periyar</p>
+          <h1>Thekkady<br>Wildlife</h1>
+          <p class="description">Periyar wildlife sanctuary and aromatic spice gardens.</p>
+          <a href="packages.html" class="discover-btn">Explore Thekkady</a>
+        </div>
+      </div>
+
+      <!-- RIGHT: Interactive Thumbnails & Slider Controls -->
+      <div>
+        <div class="cards">
+          <label for="k1" class="card-item cardk1">
+            <img src="munnargallery.jpeg" alt="Munnar">
+            <span class="card-content"><small>Kerala</small><strong>Munnar</strong></span>
+          </label>
+
+          <label for="k2" class="card-item cardk2">
+            <img src="alappuzagallery.jpeg" alt="Alleppey">
+            <span class="card-content"><small>Kerala</small><strong>Alleppey</strong></span>
+          </label>
+
+          <label for="k3" class="card-item cardk3">
+            <img src="wayanadgallery.jpeg" alt="Wayanad">
+            <span class="card-content"><small>Kerala</small><strong>Wayanad</strong></span>
+          </label>
+
+          <label for="k4" class="card-item cardk4">
+            <img src="fort kochigallery.jpeg" alt="Fort Kochi">
+            <span class="card-content"><small>Kerala</small><strong>Fort Kochi</strong></span>
+          </label>
+
+          <label for="k5" class="card-item cardk5">
+            <img src="kovalamgallery.jpeg" alt="Kovalam">
+            <span class="card-content"><small>Kerala</small><strong>Kovalam</strong></span>
+          </label>
+
+          <label for="k6" class="card-item cardk6">
+            <img src="" alt="Thekkady">
+            <span class="card-content"><small>Kerala</small><strong>Thekkady</strong></span>
+          </label>
+        </div>
+
+        <!-- Dynamic Controls -->
+        <div class="controls controlk1">
+          <label for="k6" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="k2" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">01</span>
+        </div>
+
+        <div class="controls controlk2">
+          <label for="k1" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="k3" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">02</span>
+        </div>
+
+        <div class="controls controlk3">
+          <label for="k2" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="k4" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">03</span>
+        </div>
+
+        <div class="controls controlk4">
+          <label for="k3" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="k5" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">04</span>
+        </div>
+
+        <div class="controls controlk5">
+          <label for="k4" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="k6" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">05</span>
+        </div>
+
+        <div class="controls controlk6">
+          <label for="k5" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="k1" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">06</span>
+        </div>
+
+      </div>
+    </section>
+  </section>
+
+  <!-- ================= INDIA SECTION ================= -->
+  <section class="slider" id="india">
+
+    <!-- Section Heading -->
+    <div class="container gallery-heading">
+      <span class="god">INCREDIBLE INDIA</span>
+      <h2 class="discover">India Gallery</h2>
+      <p class="hill">From the Himalayas to the southern seas, explore our diverse nation</p>
+    </div>
+
+    <!-- Hidden Radio Controls -->
+    <input type="radio" name="slider-i" id="i1" checked>
+    <input type="radio" name="slider-i" id="i2">
+    <input type="radio" name="slider-i" id="i3">
+    <input type="radio" name="slider-i" id="i4">
+    <input type="radio" name="slider-i" id="i5">
+    <input type="radio" name="slider-i" id="i6">
+
+    <!-- Background Images -->
+    <div class="bg bgi1"></div>
+    <div class="bg bgi2"></div>
+    <div class="bg bgi3"></div>
+    <div class="bg bgi4"></div>
+    <div class="bg bgi5"></div>
+    <div class="bg bgi6"></div>
+
+    <section class="content">
+
+      <!-- LEFT: Dynamic Headings & Captions -->
+      <div>
+        <div class="feature featurei1">
+          <p class="location">Agra · India</p>
+          <h1>Taj<br>Mahal</h1>
+          <p class="description">India's iconic monument of love in Agra.</p>
+          <a href="packages.html" class="discover-btn">Explore Taj Mahal</a>
+        </div>
+
+        <div class="feature featurei2">
+          <p class="location">Rajasthan · Pink City</p>
+          <h1>Jaipur<br>Pink City</h1>
+          <p class="description">Royal palaces, forts, and vibrant culture.</p>
+          <a href="packages.html" class="discover-btn">Explore Jaipur</a>
+        </div>
+
+        <div class="feature featurei3">
+          <p class="location">North India · Paradise</p>
+          <h1>Kashmir<br>Valley</h1>
+          <p class="description">Snow-capped mountains and scenic valleys.</p>
+          <a href="packages.html" class="discover-btn">Explore Kashmir</a>
+        </div>
+
+        <div class="feature featurei4">
+          <p class="location">West Coast · India</p>
+          <h1>Goa<br>Coastline</h1>
+          <p class="description">Beaches, nightlife, and Portuguese heritage.</p>
+          <a href="packages.html" class="discover-btn">Explore Goa</a>
+        </div>
+
+        <div class="feature featurei5">
+          <p class="location">Union Territory · Himalayas</p>
+          <h1>Ladakh<br>Himalayas</h1>
+          <p class="description">High mountains, monasteries, and adventure.</p>
+          <a href="packages.html" class="discover-btn">Explore Ladakh</a>
+        </div>
+
+        <div class="feature featurei6">
+          <p class="location">Uttar Pradesh · Ganges</p>
+          <h1>Varanasi<br>Ghats</h1>
+          <p class="description">Spiritual ghats, temples, and cultural heritage.</p>
+          <a href="packages.html" class="discover-btn">Explore Varanasi</a>
+        </div>
+      </div>
+
+      <!-- RIGHT: Interactive Thumbnails & Slider Controls -->
+      <div>
+        <div class="cards">
+          <label for="i1" class="card-item cardi1">
+            <img src="tajmalhalgallery.jpeg" alt="Taj Mahal">
+            <span class="card-content"><small>India</small><strong>Taj Mahal</strong></span>
+          </label>
+
+          <label for="i2" class="card-item cardi2">
+            <img src="jaipurgallery.jpeg" alt="Jaipur">
+            <span class="card-content"><small>India</small><strong>Jaipur</strong></span>
+          </label>
+
+          <label for="i3" class="card-item cardi3">
+            <img src="kashmirgallery.jpeg" alt="Kashmir">
+            <span class="card-content"><small>India</small><strong>Kashmir</strong></span>
+          </label>
+
+          <label for="i4" class="card-item cardi4">
+            <img src="goagallery.jpeg" alt="Goa">
+            <span class="card-content"><small>India</small><strong>Goa</strong></span>
+          </label>
+
+          <label for="i5" class="card-item cardi5">
+            <img src="ladakhgallery.jpeg" alt="Ladakh">
+            <span class="card-content"><small>India</small><strong>Ladakh</strong></span>
+          </label>
+
+          <label for="i6" class="card-item cardi6">
+            <img src="varanasigallery.jpeg" alt="Varanasi">
+            <span class="card-content"><small>India</small><strong>Varanasi</strong></span>
+          </label>
+        </div>
+
+        <!-- Dynamic Controls -->
+        <div class="controls controli1">
+          <label for="i6" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="i2" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">01</span>
+        </div>
+
+        <div class="controls controli2">
+          <label for="i1" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="i3" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">02</span>
+        </div>
+
+        <div class="controls controli3">
+          <label for="i2" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="i4" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">03</span>
+        </div>
+
+        <div class="controls controli4">
+          <label for="i3" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="i5" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">04</span>
+        </div>
+
+        <div class="controls controli5">
+          <label for="i4" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="i6" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">05</span>
+        </div>
+
+        <div class="controls controli6">
+          <label for="i5" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="i1" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">06</span>
+        </div>
+
+      </div>
+    </section>
+  </section>
+
+  <!-- ================= WORLD SECTION ================= -->
+  <section class="slider" id="world">
+
+    <!-- Section Heading -->
+    <div class="container gallery-heading">
+      <span class="god">BEYOND BORDERS</span>
+      <h2 class="discover">World Gallery</h2>
+      <p class="hill">From tropical islands to snow-capped alps, adventures beyond India</p>
+    </div>
+
+    <!-- Hidden Radio Controls -->
+    <input type="radio" name="slider-w" id="w1" checked>
+    <input type="radio" name="slider-w" id="w2">
+    <input type="radio" name="slider-w" id="w3">
+    <input type="radio" name="slider-w" id="w4">
+    <input type="radio" name="slider-w" id="w5">
+    <input type="radio" name="slider-w" id="w6">
+
+    <!-- Background Images -->
+    <div class="bg bgw1"></div>
+    <div class="bg bgw2"></div>
+    <div class="bg bgw3"></div>
+    <div class="bg bgw4"></div>
+    <div class="bg bgw5"></div>
+    <div class="bg bgw6"></div>
+
+    <section class="content">
+
+      <!-- LEFT: Dynamic Headings & Captions -->
+      <div>
+        <div class="feature featurew1">
+          <p class="location">Indonesia · Southeast Asia</p>
+          <h1>Bali<br>Escape</h1>
+          <p class="description">Emerald rice terraces, temples, and surf-kissed beaches.</p>
+          <a href="packages.html" class="discover-btn">Explore Bali</a>
+        </div>
+
+        <div class="feature featurew2">
+          <p class="location">Greece · Cyclades</p>
+          <h1>Santorini<br>Sunsets</h1>
+          <p class="description">Whitewashed cliffs and unforgettable sunsets over the Aegean.</p>
+          <a href="packages.html" class="discover-btn">Explore Santorini</a>
+        </div>
+
+        <div class="feature featurew3">
+          <p class="location">United Arab Emirates</p>
+          <h1>Dubai<br>Skyline</h1>
+          <p class="description">Futuristic architecture meets golden desert dunes and world-class luxury.</p>
+          <a href="packages.html" class="discover-btn">Explore Dubai</a>
+        </div>
+
+        <div class="feature featurew4">
+          <p class="location">Central Europe · Alps</p>
+          <h1>Swiss<br>Highlands</h1>
+          <p class="description">Pristine snow peaks, sparkling lakes, and scenic train journeys.</p>
+          <a href="packages.html" class="discover-btn">Explore Switzerland</a>
+        </div>
+
+        <div class="feature featurew5">
+          <p class="location">France · Europe</p>
+          <h1>Paris<br>Romance</h1>
+          <p class="description">Timeless romance, art, and iconic landmarks along the Seine.</p>
+          <a href="packages.html" class="discover-btn">Explore Paris</a>
+        </div>
+
+        <div class="feature featurew6">
+          <p class="location">Indian Ocean</p>
+          <h1>Maldives<br>Lagoons</h1>
+          <p class="description">Overwater villas and crystal-clear lagoons for pure island escape.</p>
+          <a href="packages.html" class="discover-btn">Explore Maldives</a>
+        </div>
+      </div>
+
+      <!-- RIGHT: Interactive Thumbnails & Slider Controls -->
+      <div>
+        <div class="cards">
+          <label for="w1" class="card-item cardw1">
+            <img src="baligallery.jpeg" alt="Bali">
+            <span class="card-content"><small>World</small><strong>Bali</strong></span>
+          </label>
+
+          <label for="w2" class="card-item cardw2">
+            <img src="greesgallery.jpeg" alt="Santorini">
+            <span class="card-content"><small>World</small><strong>Santorini</strong></span>
+          </label>
+
+          <label for="w3" class="card-item cardw3">
+            <img src="dubaigallery.jpeg" alt="Dubai">
+            <span class="card-content"><small>World</small><strong>Dubai</strong></span>
+          </label>
+
+          <label for="w4" class="card-item cardw4">
+            <img src="switzerlandgallery.jpeg" alt="Switzerland">
+            <span class="card-content"><small>World</small><strong>Switzerland</strong></span>
+          </label>
+
+          <label for="w5" class="card-item cardw5">
+            <img src="parisgallery.jpeg" alt="Paris">
+            <span class="card-content"><small>World</small><strong>Paris</strong></span>
+          </label>
+
+          <label for="w6" class="card-item cardw6">
+            <img src="malidivesgallery.jpeg" alt="Maldives">
+            <span class="card-content"><small>World</small><strong>Maldives</strong></span>
+          </label>
+        </div>
+
+        <!-- Dynamic Controls -->
+        <div class="controls controlw1">
+          <label for="w6" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="w2" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">01</span>
+        </div>
+
+        <div class="controls controlw2">
+          <label for="w1" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="w3" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">02</span>
+        </div>
+
+        <div class="controls controlw3">
+          <label for="w2" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="w4" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">03</span>
+        </div>
+
+        <div class="controls controlw4">
+          <label for="w3" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="w5" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">04</span>
+        </div>
+
+        <div class="controls controlw5">
+          <label for="w4" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="w6" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">05</span>
+        </div>
+
+        <div class="controls controlw6">
+          <label for="w5" class="arrow"><i class="bi bi-chevron-left"></i></label>
+          <label for="w1" class="arrow"><i class="bi bi-chevron-right"></i></label>
+          <div class="progress"><span></span></div>
+          <span class="number">06</span>
+        </div>
+
+      </div>
+    </section>
+  </section>
+  <footer class="footer">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-4 col-md-6">
+        <h5 class="fs-4">Malabar<span style="color:#d4a24c;">Voyages</span></h5>
+        <p class="small text-light">Handcrafted journeys from the heart of Kerala to breathtaking destinations across the globe.</p>
+      </div>
+      <div class="col-lg-2 col-md-6">
+        <h5>Quick Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="traveling.html">Home</a></li>
+          <li><a href="traveling.html#about">About</a></li>
+          <li><a href="destination.html">Destinations</a></li>
+          <li><a href="packages.html">Packages</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h5>Top Destinations</h5>
+        <ul class="list-unstyled">
+          <li><a href="destination.html">Munnar</a></li>
+          <li><a href="destination.html">Alleppey</a></li>
+          <li><a href="destination.html">Bali, Indonesia</a></li>
+          <li><a href="destination.html">Maldives</a></li>
+        </ul>
+      </div>
+      <div class="col-lg-3 col-md-6">
+        <h5>Contact</h5>
+        <p class="small text-light mb-1"><i class="bi bi-geo-alt text-warning"></i> Kochi, Kerala, India</p>
+        <p class="small text-light mb-1"><i class="bi bi-envelope text-warning"></i> info@malabarvoyages.com</p>
+        <p class="small text-light"><i class="bi bi-whatsapp text-warning"></i> +91 86065 31540</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 MalabarVoyages. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
