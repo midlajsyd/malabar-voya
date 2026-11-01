@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FAQ | Malabar Voyages</title>
+  <style>
+    /* Brand colours from Malabar Voyages */
+    :root {
+      --emerald-dark: #0b1f17;
+      --emerald: #145c40;
+      --gold: #d4af37;
+      --page: #f3f7f4;
+      --text: #1b2b24;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    /* Top banner */
+    header {
+      background: var(--emerald-dark);
+      color: #fff;
+      padding: 56px 20px 48px;
+      text-align: center;
+      border-bottom: 4px solid var(--gold);
+    }
+    header h1 {
+      margin: 0 0 8px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-weight: 700;
+    }
+    header p {
+      margin: 0 auto;
+      max-width: 52ch;
+      color: #cfe3d8;
+    }
+
+    main {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 40px 20px 64px;
+    }
+
+    /* Each question is one <details> box */
+    details {
+      background: #fff;
+      border: 1px solid #d7e4dc;
+      border-left: 4px solid var(--emerald);
+      border-radius: 6px;
+      margin-bottom: 14px;
+    }
+
+    /* The clickable question line */
+    summary {
+      cursor: pointer;
+      padding: 16px 52px 16px 20px;
+      font-weight: 600;
+      font-size: 1.05rem;
+      list-style: none;          /* hide default arrow */
+      position: relative;
+    }
+    summary::-webkit-details-marker { display: none; }  /* hide arrow in Safari */
+
+    /* Plus sign on the right, becomes minus when open */
+    summary::after {
+      content: "+";
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      color: var(--emerald);
+    }
+    details[open] summary::after { content: "\2212"; }
+
+    /* Gold bar and tinted question when the box is open */
+    details[open] {
+      border-left-color: var(--gold);
+    }
+    details[open] summary {
+      color: var(--emerald);
+      border-bottom: 1px solid #e3ede7;
+    }
+
+    /* The answer text */
+    details p {
+      margin: 0;
+      padding: 16px 20px 20px;
+    }
+
+    /* Keyboard focus: visible outline */
+    summary:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 2px;
+    }
+
+    summary:hover { background: #f6faf7; }
+
+    /* Contact line at the bottom */
+    .help {
+      margin-top: 36px;
+      text-align: center;
+    }
+    .help a {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 12px 26px;
+      background: var(--emerald);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      border-radius: 6px;
+    }
+    .help a:hover { background: var(--emerald-dark); }
+    .help a:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Questions, answered</h1>
+    <p>Everything you may want to know before planning a trip with Malabar Voyages.</p>
+  </header>
+
+  <main>
+    <!-- name="faq" makes it so only one answer is open at a time (no JavaScript needed) -->
+    <details name="faq">
+      <summary>How do I book a trip?</summary>
+      <p>Choose a package on the Packages page, then fill in the booking form. Our team will contact you to confirm the details.</p>
+    </details>
+
+    <details name="faq">
+      <summary>Can I change a package to suit my plans?</summary>
+      <p>Yes. Our trips are handcrafted, so tell us your dates, group size and interests in the Contact form and we will adjust the plan.</p>
+    </details>
+
+    <details name="faq">
+      <summary>Which destinations do you cover?</summary>
+      <p>We plan trips across Kerala, including Munnar and Alleppey, other parts of India, and international destinations such as Bali.</p>
+    </details>
+
+    <details name="faq">
+      <summary>What is included in a package price?</summary>
+      <p>Each package card on the Packages page lists its price and trip duration. Check the package details for what is included.</p>
+    </details>
+
+    <details name="faq">
+      <summary>Can I cancel or change my booking?</summary>
+      <p>Please contact us as early as possible with your booking details and we will explain the options available.</p>
+    </details>
+
+    <details name="faq">
+      <summary>Is the website available on mobile?</summary>
+      <p>Yes. The site is responsive, so it works on phones, tablets and desktops.</p>
+    </details>
+
+    <div class="help">
+      <p>Did not find your answer?</p>
+      <a href="contact.html">Contact us</a>
+    </div>
+  </main>
+
+</body>
+</html>
