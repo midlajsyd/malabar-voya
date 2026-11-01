@@ -1,29 +1,46 @@
-🎓 Completed my project presentation today at Techolas Kochi!Techolas Kochi
+# Malabar Voyages 🌴
 
-I’m happy to share that I presented Malabar Voyages, my frontend project, at Techolas Kochi, Kerala, as part of my Python Full Stack Development course.
+A responsive travel agency website concept for a company that plans handcrafted trips across Kerala, India, and the world, from backwater houseboat cruises and Munnar tea gardens to international destinations like Bali.
 
-🌍 About Malabar Voyages
+Built as my frontend project for the Python Full Stack Development course at Techolas, Kochi.
 
-Malabar Voyages is a travel agency website concept designed for a company that plans handcrafted trips across Kerala, India, and the world — from backwater houseboat cruises and Munnar tea gardens to international destinations like Bali.
+**🔗 Live site:** https://midlajsyd.github.io/malabar-voya/
 
-Visitors can explore destinations, check travel packages with pricing, read traveler reviews, and book trips online.
+![Malabar Voyages home page](screenshot.png)
 
-✨ Key Features: • 📱 Responsive multi-page website
-• 🏠 Home, About, Destinations, Packages, Gallery & Contact pages
-• 🌴 Kerala destinations — Munnar & Alleppey
-• 🌎 International destinations — Bali & Agra
-• 💰 Package cards with pricing & itinerary duration
-• ⭐ Customer testimonials section
-• 🔐 Booking/Login page
-• 📱 Fully responsive Bootstrap layout for mobile & desktop
+## Features
 
-💻 Technologies Used:
-HTML | CSS | Bootstrap
+- Responsive multi-page website for mobile and desktop
+- Home, About, Destinations, Packages, Gallery, Testimonials, FAQ and Contact pages
+- Kerala destinations such as Munnar and Alleppey
+- India-wide and international destinations
+- Package cards with pricing and trip duration
+- Customer testimonials section
+- Login / booking page
 
-This project helped me gain practical experience in frontend development and improved my confidence in presenting and explaining my work.
+## Built With
 
-📍 Presented at: Techolas Kochi, Kerala
+- HTML
+- CSS
+- Bootstrap
 
-🔗 Live Project: https://lnkd.in/gzYaf__8
+## Run Locally
 
-I’m currently open to internship and junior frontend developer opportunities.
+```bash
+git clone https://github.com/midlajsyd/malabar-voya.git
+```
+
+Open `index.html` in your browser.
+
+## What I Learned
+
+- Planning and building a multi-page website from scratch
+- Making layouts responsive with Bootstrap
+- Presenting and explaining my own project
+
+## Author
+
+**Syd (Sayyid Midlaj)**
+GitHub: [@midlajsyd](https://github.com/midlajsyd)
+
+Open to internship and junior frontend developer opportunities.
